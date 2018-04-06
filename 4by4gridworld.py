@@ -93,10 +93,6 @@ def test():
     t.apply(g)
     print(t(g))
 
-def toSMT2Benchmark(f, status="unknown", name="benchmark", logic=""):
-    v = (z3.Ast * 0)()
-    return z3.Z3_benchmark_to_smtlib_string(f.ctx_ref(), name, logic, status, "", 0, v, f.as_ast())
-
 def create_grid_bv(k, initial_x, initial_y):
     S = z3.Solver()
     #k-step unrolling of a 4x4 gridworld deterministic MDP
@@ -136,4 +132,7 @@ def create_grid_bv(k, initial_x, initial_y):
 if __name__ == '__main__':
     test()
     x = create_grid_bv(3, 0, 0)
+    f = open('model.smt2', 'w')
+    f.write(x)
+    f.close()
     print(x)
