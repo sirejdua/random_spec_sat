@@ -34,5 +34,4 @@
  (and (= |s_{0x}| (_ bv0 3))))
 (assert
  (and (= |s_{0y}| (_ bv0 3))))
-(export-to-dimacs "model.cnf")
 (check-sat)
