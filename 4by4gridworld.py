@@ -89,9 +89,13 @@ def test():
     # z3.print_cnf(subgoal)
     
     # z3.describe_tactics()
-    t = z3.Tactic('tseitin-cnf')
-    t.apply(g)
-    print(t(g))
+    t = z3.Then('simplify', 'bit-blast', 'tseitin-cnf')
+    subgoal = t(g)
+    assert len(subgoal) == 1
+    # Traverse each clause of the first subgoal
+    f = open('test.txt', 'w')
+    f.write(str(subgoal[0])[1:-1])
+    f.close()
 
 def create_grid_bv(k, initial_x, initial_y):
     S = z3.Solver()
@@ -119,20 +123,22 @@ def create_grid_bv(k, initial_x, initial_y):
     c_10 = z3.And([s_x[0] == initial_x])
     c_11 = z3.And([s_y[0] == initial_y])
     g = z3.Goal()
-    S.add([c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
+    # S.add([c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
+    g.add([c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
+    t = z3.Then('simplify', 'bit-blast', 'tseitin-cnf')
+    subgoal = t(g)
+    assert len(subgoal) == 1
+    # Traverse each clause of the first subgoal
+    f = open('model.txt', 'w')
+    for c in subgoal[0]:
+        f.write(str(c) + "\n")
+    f.close()
     return S.to_smt2()
-    # g = z3.Goal()
-    # g.add([c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
-    # return toSMT2Benchmark(g, "unknown", "benchmark", "lia")
-    # print(g.check())
-    # z3.describe_tactics()
-    # t = z3.Tactic('tseitin-cnf')
-    # print(t(g))
 
 if __name__ == '__main__':
-    test()
-    x = create_grid_bv(3, 0, 0)
-    f = open('model.smt2', 'w')
-    f.write(x)
-    f.close()
-    print(x)
+    # test()
+    create_grid_bv(3, 0, 0)
+    # x = create_grid_bv(3, 0, 0)
+    # f = open('model.smt2', 'w')
+    # f.write(x)
+    # f.close()
