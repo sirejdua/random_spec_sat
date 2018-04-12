@@ -4,7 +4,6 @@ import itertools
 # ----------------------------------------
 # Part (b): Unique solutions to Sum-Sudoku
 # ----------------------------------------
-
 def var(name):
     "Create a variable of the appropriate type here."
     return z3.Int(name)
@@ -28,25 +27,6 @@ def create_grid(k, initial_x, initial_y):
     s_y = [var('s_{' + str(i) + 'y}') for i in range(k)]
     act_x = [var('a_{' + str(i) + 'x}') for i in range(k-1)]
     act_y = [var('a_{' + str(i) + 'y}') for i in range(k-1)]
-    #add constraint that forall i, -1 <= a_{xi} <= 1 and the same for the y's
-    # S.add(z3.And([act_x[i] <= 1 for i in range(k)]))
-    # S.add(z3.And([act_x[i] >= -1 for i in range(k)]))
-    # S.add(z3.And([act_y[i] <= 1 for i in range(k)]))
-    # S.add(z3.And([act_y[i] >= -1 for i in range(k)]))
-    # ##
-    # ##add constraint that -2 <= s_{xi} <= 1 and the same for the y
-    # S.add(z3.And([s_x[i] <= 1 for i in range(k)]))
-    # S.add(z3.And([s_x[i] >= -2 for i in range(k)]))
-    # S.add(z3.And([s_y[i] <= 1 for i in range(k)]))
-    # S.add(z3.And([s_y[i] >= -2 for i in range(k)]))
-
-    # #add constraint that s_ix = s_{i-1}x + a_{i-1}x
-    # S.add(z3.And([s_x[i+1] == s_x[i] + a_x[i] for i in range(k-1)]))
-    # S.add(z3.And([s_y[i+1] == s_y[i] + a_y[i] for i in range(k-1)]))
-
-    # S.add(z3.And([s_x[0] == initial_x]))
-    # S.add(z3.And([s_y[0] == initial_y]))
-
     c_0 = z3.And([act_x[i] <= 1 for i in range(k-1)])
     c_1 = z3.And([act_x[i] >= -1 for i in range(k-1)])
     c_2 = z3.And([act_y[i] <= 1 for i in range(k-1)])
@@ -100,10 +80,18 @@ def test():
 def create_grid_bv(k, initial_x, initial_y):
     S = z3.Solver()
     #k-step unrolling of a 4x4 gridworld deterministic MDP
-    s_x = [var_bv('s_{' + str(i) + 'x}') for i in range(k)]
-    s_y = [var_bv('s_{' + str(i) + 'y}') for i in range(k)]
-    act_x = [var_bv('a_{' + str(i) + 'x}') for i in range(k-1)]
-    act_y = [var_bv('a_{' + str(i) + 'y}') for i in range(k-1)]
+    var_dict = dict()
+    for i in range(k):
+        var_dict['s_{' + str(i) + 'x}'] = var_bv('s_{' + str(i) + 'x}')
+        var_dict['s_{' + str(i) + 'y}'] = var_bv('s_{' + str(i) + 'y}')
+        if i <= k-2:
+            var_dict['a_{' + str(i) + 'x}'] = var_bv('a_{' + str(i) + 'x}')
+            var_dict['a_{' + str(i) + 'y}'] = var_bv('a_{' + str(i) + 'y}')
+
+    s_x = [var_dict['s_{' + str(i) + 'x}'] for i in range(k)]
+    s_y = [var_dict['s_{' + str(i) + 'y}'] for i in range(k)]
+    act_x = [var_dict['a_{' + str(i) + 'x}'] for i in range(k-1)]
+    act_y = [var_dict['a_{' + str(i) + 'y}'] for i in range(k-1)]
 
     c_0 = z3.And([act_x[i] <= 1 for i in range(k-1)])
     c_1 = z3.And([act_x[i] >= -1 for i in range(k-1)])
@@ -123,7 +111,16 @@ def create_grid_bv(k, initial_x, initial_y):
     c_10 = z3.And([s_x[0] == initial_x])
     c_11 = z3.And([s_y[0] == initial_y])
     g = z3.Goal()
-    # S.add([c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
+    S.add([c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
+
+    #code to count # of solutions 
+    counter = 0
+    while S.check() == z3.sat:
+        counter += 1
+        # print(S.model())
+        S.add(z3.Or([var_dict[str(var)] != S.model()[var].as_signed_long() for var in S.model()]))
+    print(counter)
+
     g.add([c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_9, c_10, c_11])
     t = z3.Then('simplify', 'bit-blast', 'tseitin-cnf')
     subgoal = t(g)
@@ -137,6 +134,7 @@ def create_grid_bv(k, initial_x, initial_y):
 
 if __name__ == '__main__':
     # test()
+    # print(twos_comp(7,3))
     create_grid_bv(3, 0, 0)
     # x = create_grid_bv(3, 0, 0)
     # f = open('model.smt2', 'w')
