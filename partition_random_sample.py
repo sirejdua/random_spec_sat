@@ -111,10 +111,14 @@ def partition_formula(var_counts, filename):
 #################################
 if __name__ == "__main__":
     output = str(sys.argv[1]).split('.')[0]
+    try:
+        k = int(sys.argv[2])
+    except:
+        k = 4
     with open(output + ".cnf", 'r') as f:
         data = f.readlines()
         with open(output + "copy.cnf", 'w') as filecopy:
             filecopy.writelines(data)
-    partition_formula(get_top_vars(4, 5000, output + 'copy.cnf'), output + '.cnf')
+    partition_formula(get_top_vars(k, 5000, output + 'copy.cnf'), output + '.cnf')
 
 
