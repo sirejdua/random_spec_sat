@@ -49,9 +49,9 @@ def sample_solutions(numMCSamples, counting_vars, clauses):
 #############################
 num_clauses_initial = 0
 output = ""
-def get_top_vars(k, c, filename):
+def get_top_vars(k, numMCSamples, filename):
     global num_clauses_initial
-    #finds top k partitioning variables of formula after c iterations of the solver running
+    #finds top k partitioning variables of formula after c random samples drawn from the counting variables
     var_counts = np.zeros(k)
     counting_vars = dict()
     #get the number of variables and create the appropriate array
@@ -67,9 +67,7 @@ def get_top_vars(k, c, filename):
                 var_counts = np.zeros(int(line[2]))
             else:
                 clauses.append([int(i) for i in line[:-1]])
-
-    print(len(clauses))
-    counter = sample_solutions(500, counting_vars, clauses)
+    counter = sample_solutions(numMCSamples, counting_vars, clauses)
     for i in counting_vars.keys():
         var_counts[i] = counting_vars[i]
     #get k top vars
@@ -117,6 +115,6 @@ if __name__ == "__main__":
         data = f.readlines()
         with open(output + "copy.cnf", 'w') as filecopy:
             filecopy.writelines(data)
-    partition_formula(get_top_vars(4, 10, output + 'copy.cnf'), output + '.cnf')
+    partition_formula(get_top_vars(4, 5000, output + 'copy.cnf'), output + '.cnf')
 
 
