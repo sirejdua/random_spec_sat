@@ -79,4 +79,5 @@ def main(filename):
 
 
 if __name__ == '__main__':
+    assert len(sys.argv) == 2, "Example usage:\n python cnf_converter.py model.cnf"
     main(sys.argv[1])
