@@ -10,6 +10,25 @@ import argparse
 import subprocess
 import numpy as np
 
+def countSampleWithEnumeration(clauses, counting_vars):
+    solver = solverForSample(clauses)
+
+    # enumerate assignments until UNSAT or threshold exceeded
+    count = 0
+    while True:
+        sat, model = solver.solve()
+        if not sat:
+            break
+        count += 1
+        blockingClause = []
+        for var in counting_vars:
+            if model[var]:
+                blockingClause.append(-var)
+            else:
+                blockingClause.append(var)
+        solver.add_clause(blockingClause)
+    return count
+
 ###################################
 ##### RANDOM SAMPLER ##############
 ###################################
@@ -56,23 +75,19 @@ def get_top_vars(k, numMCSamples, filename):
     counting_vars = dict()
     #get the number of variables and create the appropriate array
     clauses = []
-    counter = 0
     with open(filename, 'r') as f:
         for f_line in f:
             line = f_line.split(' ')
-            if line[0] == 'c' and counter == 0:
+            if line[0] == 'c':
                 ind_vars = line[2:-1]
-                counter += 1
                 for i in range(len(ind_vars)):
                     counting_vars[int(ind_vars[i])] = 0
             elif line[0] == 'p':
                 var_counts = np.zeros(int(line[2]))
-            elif line[0] == 'c' and counter != 0:
-                continue
             else:
                 clauses.append([int(i) for i in line[:-1]])
-                counter += 1
-    counter = sample_solutions(numMCSamples, counting_vars, clauses)
+    print("TOTAL SOLUTIONS:" + str(countSampleWithEnumeration(clauses, counting_vars)))
+    print("\n")
     for i in counting_vars.keys():
         var_counts[i] = counting_vars[i]
     #get k top vars
@@ -124,6 +139,6 @@ if __name__ == "__main__":
         data = f.readlines()
         with open(output + "copy.cnf", 'w') as filecopy:
             filecopy.writelines(data)
-    partition_formula(get_top_vars(k, 5000, output + 'copy.cnf'), output + '.cnf')
+    get_top_vars(k, 100000, output + 'copy.cnf')
 
 
