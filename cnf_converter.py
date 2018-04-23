@@ -1,6 +1,9 @@
 import sys
 import math
-from dd import cudd as _bdd
+try:
+    import dd.cudd as _bdd
+except ImportError:
+    import dd.autoref as _bdd
 
 def parse_cnf(filename):
     #takes as input a cnf file
