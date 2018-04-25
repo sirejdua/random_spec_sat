@@ -115,15 +115,15 @@ def partition_formula(var_counts, filename):
 ##### END PARTITIONER ###########
 #################################
 if __name__ == "__main__":
-    output = str(sys.argv[1]).split('.')[0]
+    output = str(sys.argv[1])
     try:
         k = int(sys.argv[2])
     except:
         k = 4
-    with open(output + ".cnf", 'r') as f:
-        data = f.readlines()
-        with open(output + "copy.cnf", 'w') as filecopy:
-            filecopy.writelines(data)
-    partition_formula(get_top_vars(k, 5000, output + 'copy.cnf'), output + '.cnf')
+    # with open(output + ".cnf", 'r') as f:
+    #     data = f.readlines()
+    #     with open(output + "copy.cnf", 'w') as filecopy:
+    #         filecopy.writelines(data)
+    partition_formula(get_top_vars(k, 5000, output), output)
 
 
