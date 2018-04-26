@@ -43,11 +43,11 @@ def main(aag_path, cnf_path):
     counting_vars = fn.project(var_mapping, map(str, aag.inputs)).values()
 
     # Write special comment to indicate the counting variables
-    with open(cnf_path, 'a') as f:
-        f.write(f"c ind {' '.join(counting_vars)} 0")
-        print("hi")
-
+    data = [f"c ind {' '.join(counting_vars)} 0\n"]
+    with open(cnf_path, 'r') as f:
+        data += f.readlines()
+    with open(cnf_path, 'w') as f:
+        f.writelines(data)
 
 if __name__ == '__main__':
     main()
-

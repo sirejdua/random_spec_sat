@@ -91,21 +91,21 @@ def partition_formula(var_counts, filename):
         l = len(b)
         b = str(0) * (n - l) + b
         ##construct constraint
-        assignment = "\n"
+        assignment = ""
         for i in range(len(b)):
             if b[i] == '1':
                 assignment += str(var_counts[i]) + ' 0\n'
             else:
                 assignment += '-' + str(var_counts[i]) + ' 0\n'
         #add constraint to original file
-        with open(filename.split('.')[0] + ".cnf", 'r') as file:
+        with open(filename.split('.cnf')[0] + ".cnf", 'r') as file:
             data = file.readlines()
         num_data = data[1].split(' ')
         num_data[-1] = str(int(num_data[-1]) + 1) 
         constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
         data[1] = constraints_and_clauses
         ###write modified info back to the file banning this last solution and adjusting the number of clauses
-        name = filename.split('.')[0] + '-window-' + str(index) + '.cnf'
+        name = filename.split('.cnf')[0] + '-window-' + str(index) + '.cnf'
         f = open(name, 'w')
         f.writelines(data)
         f.write(assignment)
