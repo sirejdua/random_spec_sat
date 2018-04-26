@@ -91,7 +91,7 @@ def partition_formula(var_counts, filename):
         l = len(b)
         b = str(0) * (n - l) + b
         ##construct constraint
-        assignment = ""
+        assignment = "\n"
         for i in range(len(b)):
             if b[i] == '1':
                 assignment += str(var_counts[i]) + ' 0\n'
@@ -124,6 +124,6 @@ if __name__ == "__main__":
     #     data = f.readlines()
     #     with open(output + "copy.cnf", 'w') as filecopy:
     #         filecopy.writelines(data)
-    partition_formula(get_top_vars(k, 5000, output), output)
+    partition_formula(get_top_vars(k, 50000, output), output)
 
 

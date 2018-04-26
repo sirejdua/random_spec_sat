@@ -44,11 +44,6 @@ for i in range(num_files):
     i += end-start
 i /= num_files
 
-print(i)
-# end = time.time()
-#print("Time for partitioned: " + str(end - start))
-print("Time for partitioned: {}".format(end - start))
-
 i = 0
 while partition_count % (2**(i+1)) == 0:
     i += 1
@@ -62,9 +57,9 @@ partition_count_str = str(partition_count/(2**i)) + " x 2^" + str(i)
 
 print("Partitioned Count: " + partition_count_str)
 print("Original Count: " + original_count_str)
-
+print(k)
 print("Partitioned Probability: " + str(partition_count/(2**k)))
-print("Original Count: " + str(original_count/(2**k)))
+print("Original Probability: " + str(original_count/(2**k)))
 # #convert aiger file to .aag
 # os.popen("./../aiger-1.9.9/aigtoaig " + aiger_file + ".aig " + aiger_file + ".aag")
 # os.popen("./../aiger-1.9.9/aigand " + aiger_file + ".aag " + aiger_file + ".aig")
@@ -73,6 +68,16 @@ print("Original Count: " + str(original_count/(2**k)))
 
 if aiger:
     os.system("./../aiger-1.9.9/aigtoaig " + aiger_file + ".aig " + aiger_file + ".aag")
+    print("aigtoaig")
     os.system("./../aiger-1.9.9/aigand " + aiger_file + ".aag " + aiger_file + ".aig")
+    print("aigand")
     os.system("./../aiger-1.9.9/aigtoaig " + aiger_file + ".aig " + aiger_file + ".aag")
-    os.system("aigcount " + aiger_file + ".aag")
+    print("aigtoaig")
+    os.system("aigcompose " + aiger_file + ".aag " + "tests/raw_files/source.aag " + aiger_file + ".aig")
+    print("aigcompose")
+    os.system("./../aiger-1.9.9/aigtoaig " + aiger_file + ".aig " + aiger_file + ".aag")
+    print("aigtoaig")
+    os.system("./../aiger-1.9.9/aigand " + aiger_file + ".aag " + aiger_file + ".aig")
+    print("aigand")
+    os.system("./../aiger-1.9.9/aigtoaig " + aiger_file + ".aig " + aiger_file + ".aag")
+    print("aigtoaig")
