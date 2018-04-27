@@ -113,17 +113,19 @@ def partition_formula(var_counts, filename):
             else:
                 if "c ind" in data[i]:
                     str_ind = "c ind "
-                    for independent_variable in data[i].split(' '):
+                    for independent_variable in data[i].strip("c ind ").split(' ')[:-1]:
                         if independent_variable not in var_counts:
                             str_ind += str(independent_variable) + " "
                     str_ind += "0\n"
                     new_data += [str_ind]
-                if "p cnf" in data[i]:
+                elif "p cnf" in data[i]:
                     num_data = data[i].split(' ')
                     num_data[-1] = str(int(num_data[-1]) + n) 
                     constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
                     data[i] = constraints_and_clauses
                     new_data += [data[i]]
+                elif "c" in data[i]:
+                    continue
                 else:
                     clause = data[i].split(' ')
                     clause = [int(x) for x in clause[:-1]]
@@ -150,7 +152,6 @@ def partition_formula(var_counts, filename):
             for i in range(len(new_data)):
                 if "p cnf" in new_data[i]:
                     num_data = new_data[i].split(' ')
-                    num_data[1] = str(int(num_data[1] - n))
                     constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + str(len(var_set)) + ' ' + str(num_clauses) + '\n'
                     data[i] = constraints_and_clauses
                     new_data += [data[i]]

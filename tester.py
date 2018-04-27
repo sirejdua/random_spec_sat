@@ -35,31 +35,39 @@ with open(filename, 'r') as f:
 
 ##count number of original solutions
 start = time.time()
-epsilon_main = epsilon/k
-pivotAC_main = int(math.ceil(9.84 * (1 + (epsilon_main / (1.0 + epsilon_main))) * (1 + (1.0/epsilon_main)) * (1 + (1.0/epsilon_main))))
-info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta 0.02 " + filename).readlines()[-1]
-num_sols = info.split(': ')[1].split(' x ')
-base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
-original_count += int(num_sols[0]) * base**exp
+#MONTE CARLO ON ORIGINAL
+(sampleMant, sampleExp, sampleExact) = countSampleWithMonteCarlo(15000, counting_vars, clauses[:])
+original_count += sampleMant * 2**sampleExp
+# info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC) + " --delta 0.02 " + filename).readlines()[-1]
+# num_sols = info.split(': ')[1].split(' x ')
+# base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
+# original_count += int(num_sols[0]) * base**exp
 end = time.time()
 print("Time for original: " + str(end - start))
 
 #count number of partitioned solutions
 partition_count = 0
 i = 0
+start = time.time()
 for i in range(num_files):
-    start = time.time()
-    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
-    try:
-        num_sols = info.split(': ')[1].split(' x ')
-        base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
-        partition_count += int(num_sols[0]) * base**exp
-    except:
-        continue
-    #print("Time for partitioned: " + str(end - start))
-    end = time.time()
-    print("Time for partitioned : {}".format(end - start))
-    i += end-start
+    #MONTE CARLO ON PARTITIONS
+    (sampleMant, sampleExp, sampleExact) = countSampleWithMonteCarlo(15000, counting_vars, clauses[:] + partition_clauses[i])
+    partition_count += sampleMant * 2**sampleExp
+    # print(2, '%.3f x 2^%d' % (sampleMant, sampleExp))
+    # start = time.time()
+    # info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+    # try:
+    #     num_sols = info.split(': ')[1].split(' x ')
+    #     base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
+    #     partition_count += int(num_sols[0]) * base**exp
+    # except:
+    #     continue
+    # #print("Time for partitioned: " + str(end - start))
+    # end = time.time()
+    # print("Time for partitioned : {}".format(end - start))
+    # i += end-start
+end = time.time()
+print("Time for partitioned: " + str(end - start))
 i /= num_files
 
 i = 0

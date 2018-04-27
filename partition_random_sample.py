@@ -23,11 +23,11 @@ def solverForSample(clauses):
         solver.add_clause(clause)
     return solver
 
-def sample_solutions(numMCSamples, counting_vars, clauses): 
+def sample_solutions(numSamples, counting_vars, clauses): 
     solver = solverForSample(clauses)
     # take samples
     positiveSamples = 0
-    for i in range(numMCSamples):
+    for i in range(numSamples):
         # generate random assignment to the counting variables
         assumptions = []
         for var in counting_vars.keys():
@@ -44,23 +44,58 @@ def sample_solutions(numMCSamples, counting_vars, clauses):
                     counting_vars[var_assignment] += 1
     return positiveSamples
 
+def countSampleWithMonteCarlo(numMCSamples, counting_vars, clauses):
+    solver = solverForSample(clauses)
+
+    # if formula is UNSAT, don't bother sampling
+    sat, model = solver.solve()
+    if not sat:
+        return (0, 0, True)
+
+    # take samples
+    positiveSamples = 0
+    for i in range(numMCSamples):
+        # generate random assignment to the counting variables
+        assumptions = []
+        for var in counting_vars.keys():
+            if randbool():
+                assumptions.append(var)
+            else:
+                assumptions.append(-var)
+
+        # check if assignment is consistent
+        sat, model = solver.solve(assumptions)
+        if sat:
+            positiveSamples += 1
+
+    sampleMant = float(positiveSamples) / numMCSamples
+    sampleExp = len(counting_vars.keys())
+    while sampleMant > 0 and sampleMant < 1:
+        sampleMant *= 2
+        sampleExp -= 1
+    return (sampleMant, sampleExp, False)
+
 #############################
 ##### PARTITIONER ###########
 #############################
+
 num_clauses_initial = 0
 output = ""
-def get_top_vars(k, numMCSamples, filename):
+counting_vars = dict()
+clauses = []
+partition_clauses = []
+def get_top_vars(k, numSamples, filename):
     global num_clauses_initial
     #finds top k partitioning variables of formula after c random samples drawn from the counting variables
     var_counts = np.zeros(k)
-    counting_vars = dict()
+    global counting_vars
     #get the number of variables and create the appropriate array
-    clauses = []
+    global clauses
     counter = 0
     with open(filename, 'r') as f:
         for f_line in f:
             line = f_line.split(' ')
-            if line[0] == 'c' and counter == 0:
+            if "c ind" in f_line:
                 ind_vars = line[2:-1]
                 counter += 1
                 for i in range(len(ind_vars)):
@@ -72,7 +107,7 @@ def get_top_vars(k, numMCSamples, filename):
             else:
                 clauses.append([int(i) for i in line[:-1]])
                 counter += 1
-    counter = sample_solutions(numMCSamples, counting_vars, clauses)
+    counter = sample_solutions(numSamples, counting_vars, clauses)
     for i in counting_vars.keys():
         var_counts[i] = counting_vars[i]
     #get k top vars
@@ -84,21 +119,24 @@ def get_top_vars(k, numMCSamples, filename):
     return var_counts[:k]
 
 def partition_formula(var_counts, filename):
+    global partition_clauses 
     n = len(var_counts)
     for index in range(2**n):
-        cpy = var_counts.copy()
         #get binary string corresponding to index
         b = bin(index)[2:]
         l = len(b)
         b = str(0) * (n - l) + b
         ##construct constraint
         assignment = ""
+        part_clause = []
         for i in range(len(b)):
             if b[i] == '1':
                 assignment += str(var_counts[i]) + ' 0\n'
+                part_clause += [[var_counts[i]]]
             else:
                 assignment += '-' + str(var_counts[i]) + ' 0\n'
-                cpy[i] = -var_counts[i]
+                part_clause += [[-var_counts[i]]]
+        partition_clauses += [part_clause]
         #add constraint to original file
         with open(filename, 'r') as file:
             data = file.readlines()
