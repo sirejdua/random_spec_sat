@@ -86,6 +86,7 @@ def get_top_vars(k, numMCSamples, filename):
 def partition_formula(var_counts, filename):
     n = len(var_counts)
     for index in range(2**n):
+        cpy = var_counts.copy()
         #get binary string corresponding to index
         b = bin(index)[2:]
         l = len(b)
@@ -97,18 +98,23 @@ def partition_formula(var_counts, filename):
                 assignment += str(var_counts[i]) + ' 0\n'
             else:
                 assignment += '-' + str(var_counts[i]) + ' 0\n'
+                cpy[i] = -var_counts[i]
         #add constraint to original file
-        with open(filename.split('.cnf')[0] + ".cnf", 'r') as file:
+        with open(filename, 'r') as file:
             data = file.readlines()
-        num_data = data[1].split(' ')
-        num_data[-1] = str(int(num_data[-1]) + 1) 
-        constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
-        data[1] = constraints_and_clauses
-        ###write modified info back to the file banning this last solution and adjusting the number of clauses
+        num_data = []
+        for i in range(len(data)):
+            if "p cnf" in data[i]:
+                num_data = data[i].split(' ')
+                num_data[-1] = str(int(num_data[-1]) + n) 
+                constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
+                data[i] = constraints_and_clauses
+                break
+        ###write modified info back to the file
         name = filename.split('.cnf')[0] + '-window-' + str(index) + '.cnf'
-        f = open(name, 'w')
-        f.writelines(data)
-        f.write(assignment)
+        with open(name, 'w') as f:
+            f.writelines(data)
+            f.write(assignment)
         f.close()
 
 #################################

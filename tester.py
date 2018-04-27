@@ -9,9 +9,11 @@ from partition_random_sample import *
 parser = argparse.ArgumentParser()
 parser.add_argument("aiger_file", help = "path to aiger circuit unrolling")
 parser.add_argument("-k", "--num_partition_variables", help = "number of partitioning variables", type = int, default = 4)
+parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 98% probability", type = float, default = 2)
 args = parser.parse_args()
 aiger_file = args.aiger_file.split('.a')[0]
-
+epsilon = float(args.epsilon)
+pivotAC = int(math.ceil(9.84 * (1 + (epsilon / (1.0 + epsilon))) * (1 + (1.0/epsilon)) * (1 + (1.0/epsilon))))
 k = int(args.num_partition_variables)
 num_files = 2**k
 
@@ -33,7 +35,9 @@ with open(filename, 'r') as f:
 
 ##count number of original solutions
 start = time.time()
-info = os.popen("./../maxcount/scalmc " + filename).readlines()[-1]
+epsilon_main = epsilon/k
+pivotAC_main = int(math.ceil(9.84 * (1 + (epsilon_main / (1.0 + epsilon_main))) * (1 + (1.0/epsilon_main)) * (1 + (1.0/epsilon_main))))
+info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta 0.02 " + filename).readlines()[-1]
 num_sols = info.split(': ')[1].split(' x ')
 base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
 original_count += int(num_sols[0]) * base**exp
@@ -45,8 +49,7 @@ partition_count = 0
 i = 0
 for i in range(num_files):
     start = time.time()
-    
-    info = os.popen("./../maxcount/scalmc " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
     try:
         num_sols = info.split(': ')[1].split(' x ')
         base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
