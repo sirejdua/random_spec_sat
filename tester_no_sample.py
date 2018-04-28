@@ -27,10 +27,8 @@ os.system("aigcompose " + "tests/raw_files/source.aag " + aiger_file + ".aag " +
 os.system("python3 aigtocnf_ind.py " + aiger_file + "out.aag " + aiger_file + ".cnf ")
 filename = aiger_file + ".cnf"
 print(filename)
-start = time.time()
 partition_formula(get_top_vars(k, 100000, filename), filename)
-end = time.time()
-file_gen_time = end - start
+
 with open(filename, 'r') as f:
     while True:
         x = f.readline()
@@ -50,64 +48,31 @@ start = time.time()
 # original_count += sampleMant * 2**sampleExp
 #SCALMC ON ORIGINAL
 info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta 0.02 " + filename).readlines()[-1]
+print(info)
 num_sols = info.split(': ')[1].split(' x ')
 base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
 original_count += int(num_sols[0]) * base**exp
-end = time.time()
-original_time = end - start
 
+end = time.time()
+print("Time for original: " + str(end - start))
 
 #count number of partitioned solutions
-# partition_count = 0
-i = 0
-density_counter = 0
-density_sum = 0.0
-density = 0
-partition_time = 0
+partition_count = 0
+time_total = 0
 start = time.time()
-file_list = np.array(range(num_files))
-np.random.shuffle(file_list)
-file_counter = 0
-for i in file_list:
+for i in range(2**n):
     #MONTE CARLO ON PARTITIONS
     # (sampleMant, sampleExp, sampleExact) = countSampleWithMonteCarlo(500, counting_vars, clauses[:] + partition_clauses[i])
     # partition_count += sampleMant * 2**sampleExp
     # print(2, '%.3f x 2^%d' % (sampleMant, sampleExp))
     #SCALMC ON PARTITIONS
     start = time.time()
-    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta 0.001 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
     try:
         num_sols = info.split(': ')[1].split(' x ')
         base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
-        density_sum += float(int(num_sols[0]) * (base**exp))/(2**(n-k))
-        # print("Current Cell Solutions: " + str(int(num_sols[0]) * base**exp))
-        old_density = density
-        file_counter += 1
-        end = time.time()
-        partition_time += end - start
-        density = density_sum/file_counter
-        # print("Index: " + str(file_counter))
-        # print("Density: " + str(density))
-        # # print("Number of Possible Solutions: " + str(2**(n-k)))
-        # # print("Current Cell Density: " + str(float(partition_count)/(2**(n-k))))
-        # print("Old Density: " + str(old_density))
-        # print("Difference: " + str(abs(density - old_density)))
-        # print("Iterations to Convergence: " + str(density_counter))
-        if abs(density - old_density) <= .001:
-            density_counter += 1
-            if density_counter >= 16:
-                break
-        else:
-            density_counter = 0
+        partition_count += int(num_sols[0]) * base**exp
     except: 
-        file_counter += 1
-        density = density_sum/file_counter
-        if abs(density - old_density) <= .001:
-            density_counter += 1
-            if density_counter >= 16:
-                break
-        else:
-            density_counter = 0
         continue
     #print("Time for partitioned: " + str(end - start))
     # i += end-start
@@ -115,9 +80,9 @@ for i in file_list:
 # print("Time for partitioned: " + str(end - start))
 i /= num_files
 
-# i = 0
-# while partition_count % (2**(i+1)) == 0:
-#     i += 1
+i = 0
+while partition_count % (2**(i+1)) == 0:
+    i += 1
 
 j = 0
 while original_count % (2**(j+1)) == 0:
@@ -132,9 +97,7 @@ print("Partitioned Count: " + partition_count_str)
 print("Original Count: " + original_count_str)
 print("Partitioned Probability: " + str(float(partition_count)/(2**n)))
 print("Original Probability: " + str(float(original_count)/(2**n)))
-print("Time for partitioned without file generation: {}".format(partition_time))
-print("Time for partitioned with file generation : {}".format(partition_time + file_gen_time))
-print("Time for original: " + str(original_time))
+print("Time for partitioned : {}".format(time_total))
 prob = os.popen("aigcount " + aiger_file + "out.aag").readlines()[0][:-2]
 print("Actual Probability: " + str(float(prob)))
 
