@@ -1,0 +1,15 @@
+aag 0 0 0 7 0
+0
+1
+0
+0
+1
+1
+0
+o0 currX[0]
+o1 currX[1]
+o2 currX[2]
+o3 currY[0]
+o4 currY[1]
+o5 currY[2]
+o6 already_got_wet

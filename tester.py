@@ -29,9 +29,16 @@ print(filename)
 partition_formula(get_top_vars(k, 100000, filename), filename)
 
 with open(filename, 'r') as f:
-    x = f.readline()
-    if "c ind" in x:
-        n = len(x.split(' ')) - 3
+    while True:
+        x = f.readline()
+        if "c ind" in x:
+            n += len(x.split(' ')) - 3
+            print(n)
+        else:
+            break
+if n is 0:
+    n = len(counting_vars.keys())
+    print(n)
 
 ##count number of original solutions
 start = time.time()
@@ -40,6 +47,7 @@ start = time.time()
 # original_count += sampleMant * 2**sampleExp
 #SCALMC ON ORIGINAL
 info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC) + " --delta 0.02 " + filename).readlines()[-1]
+print(info)
 num_sols = info.split(': ')[1].split(' x ')
 base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
 original_count += int(num_sols[0]) * base**exp
