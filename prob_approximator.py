@@ -12,8 +12,8 @@ parser.add_argument("-k", "--num_partition_variables", help = "number of partiti
 parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 98% probability", type = float, default = 2)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
 parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5"], help='partitioning technique')
-parser.add_argument("--threshold", action='store', choices=[5, 10, 16, 32], help='number of iterations to convergence')
-parser.add_argument("--convergence_limit", action='store', choices=[.1, .01, .001, .0005], help='number of iterations to convergence')
+parser.add_argument("--threshold", action='store', choices=["5", "10", "16", "32"], help='number of iterations to convergence')
+parser.add_argument("--convergence_limit", action='store', choices=["0.1", "0.01", "0.001", "0.0005"], help='number of iterations to convergence')
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
 parser.add_argument("--ignore_partition", help = "run scalmc on the original model", action = "store_true")
 args = parser.parse_args()
@@ -42,19 +42,8 @@ with open(filename, 'r') as f:
             found = True
             if n is 0:
                 n = int(x.split(' ')[-2])
-#if k was never specified, calculate it according to the parameters of the cnf file
-if k == -1:
-    if args.method == "3n/4":
-        k = int(.75*n)
-    elif args.method == "n/2":
-        k = int(0.5*n)
-    else:
-        k = n-5
-threshold = args.threshold
-free_vars = n - k
 
 print("File: " + filename.split('/')[-1].split('.')[0])
-print("k = " + str(k))
 
 #set the parameters appropriately
 epsilon_main = float(args.epsilon)
@@ -84,6 +73,18 @@ if run_on_original:
 
 #SCALMC ON PARTITIONS
 if run_on_partition:
+    #if k was never specified, calculate it according to the parameters of the cnf file
+    if k == -1:
+        if args.method == "3n/4":
+            k = int(.75*n)
+        elif args.method == "n/2":
+            k = int(0.5*n)
+        else:
+            k = n-5
+    print("k = " + str(k))
+    convergence_limit = float(args.convergence_limit)
+    threshold = int(args.threshold)
+    free_vars = n - k
     #partition the file, time it
     start = time.time()
     variable_order = get_top_vars(k, 25000, filename)
@@ -114,8 +115,6 @@ if run_on_partition:
                 converged = True
                 break
         end_gen = time.time()
-        if abs(generator - end_gen) >= 1.00:
-            print(generator - end_gen)
         partitions.add(assignment_str)
         write_partition(partition_vars, filename, i, bin_string = assignment_str)
         info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
