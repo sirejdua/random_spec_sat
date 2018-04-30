@@ -2,6 +2,7 @@ import subprocess, os, sys
 import time
 import argparse
 from partition_random_sample import *
+import math
 #################
 ### argparser ###
 #################
@@ -11,7 +12,7 @@ parser.add_argument("aiger_source", help = "path to aiger source")
 parser.add_argument("-k", "--num_partition_variables", help = "number of partitioning variables", type = int, default = -1)
 parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 98% probability", type = float, default = 2)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
-parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5"], help='partitioning technique')
+parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], help='partitioning technique')
 parser.add_argument("--threshold", action='store', choices=["5", "10", "16", "32"], help='number of iterations to convergence')
 parser.add_argument("--convergence_limit", action='store', choices=["0.1", "0.01", "0.001", "0.0005"], help='number of iterations to convergence')
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
@@ -79,8 +80,11 @@ if run_on_partition:
             k = int(.75*n)
         elif args.method == "n/2":
             k = int(0.5*n)
-        else:
+        elif args.method == "nlogn":
+            k = int(n - np.log(n))
+        else: 
             k = n-5
+    print("Partitioning Technique: " + str(args.method))
     print("k = " + str(k))
     convergence_limit = float(args.convergence_limit)
     threshold = int(args.threshold)
@@ -135,7 +139,7 @@ if run_on_partition:
                         density_counter = 0
                         free_variable_count_adjustments += 1
                         threshold = int(threshold / 2)
-                        if k <= 0 or threshold == 1:
+                        if k <= 0 or threshold <= 1:
                             converged = True
                         density = 0
                         density_sum = 0
@@ -155,9 +159,11 @@ if run_on_partition:
     partition_time = end - start
     partition_count = density * 2**n
     i = 0
-    while int(partition_count) % (2**(i+1)) == 0:
-        i += 1
-    partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
+    # while int(partition_count) % (2**(i+1)) == 0:
+    #     i += 1
+    # partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
+    print("Convergence Limit: " + str(convergence_limit))
+    print("Threshold: " + str(args.threshold))
     print("Partitioned Probability: " + str(float(partition_count)/(2**n)))
     print("epsilon for partitioned = " + str(epsilon_partition))
     print("Time for partitioned with partitioning overhead : {}".format(partition_time + file_gen_time))

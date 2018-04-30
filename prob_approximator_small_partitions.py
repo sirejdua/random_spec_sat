@@ -145,9 +145,9 @@ if run_on_partition:
     end = time.time()
     partition_time = end - start
     partition_count = density * 2**n
-    i = 0
-    while int(partition_count) % (2**(i+1)) == 0:
-        i += 1
+    # i = 0
+    # while int(partition_count) % (2**(i+1)) == 0:
+    #     i += 1
     partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
     print("Partitioned Probability: " + str(float(partition_count)/(2**n)))
     print("epsilon for partitioned = " + str(epsilon_partition))

@@ -16,6 +16,15 @@ import numpy as np
 
 randbool = lambda: random.random() < 0.5
 
+def random_string_generator(k):
+    assignment_str = ""
+    for i in range(k):
+        if randbool():
+            assignment_str += "1"
+        else:
+            assignment_str += "0"
+    return assignment_str
+
 def solverForSample(clauses):
     # set up solver with clauses from original formula
     solver = pycryptosat.Solver()
@@ -83,7 +92,7 @@ num_clauses_initial = 0
 output = ""
 counting_vars = dict()
 clauses = []
-partition_clauses = []
+allOne = 0
 def get_top_vars(k, numSamples, filename):
     global num_clauses_initial
     #finds top k partitioning variables of formula after c random samples drawn from the counting variables
@@ -91,6 +100,8 @@ def get_top_vars(k, numSamples, filename):
     global counting_vars
     #get the number of variables and create the appropriate array
     global clauses
+    #get the number of positive samples
+    global allOne
     counter = 0
     with open(filename, 'r') as f:
         for f_line in f:
@@ -113,6 +124,7 @@ def get_top_vars(k, numSamples, filename):
                 clauses.append([int(i) for i in line[:-1]])
                 counter += 1
     counter = sample_solutions(numSamples, counting_vars, clauses)
+    allOne = (counter == numSamples)
     for i in counting_vars.keys():
         var_counts[i] = counting_vars[i]
     #get k top vars
@@ -121,44 +133,45 @@ def get_top_vars(k, numSamples, filename):
             if var_counts[i] < counter - var_counts[i]:
                 var_counts[i] = counter - var_counts[i]
     var_counts = np.argsort(-var_counts)
-    return var_counts[:k]
+    return var_counts
 
-def partition_formula(var_counts, filename):
-    global partition_clauses 
+def partition_formula(var_counts, filename): 
     n = len(var_counts)
     for index in range(2**n):
         #get binary string corresponding to index
-        b = bin(index)[2:]
-        l = len(b)
-        b = str(0) * (n - l) + b
-        ##construct constraint
-        assignment = ""
-        part_clause = []
-        for i in range(len(b)):
-            if b[i] == '1':
-                assignment += str(var_counts[i]) + ' 0\n'
-                part_clause += [[var_counts[i]]]
-            else:
-                assignment += '-' + str(var_counts[i]) + ' 0\n'
-                part_clause += [[-var_counts[i]]]
-        partition_clauses += [part_clause]
-        #add constraint to original file
-        with open(filename, 'r') as file:
-            data = file.readlines()
-        num_data = []
-        for i in range(len(data)):
-            if "p cnf" in data[i]:
-                num_data = data[i].split(' ')
-                num_data[-1] = str(int(num_data[-1]) + n) 
-                constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
-                data[i] = constraints_and_clauses
-                break
-        ###write modified info back to the file
-        name = filename.split('.cnf')[0] + '-window-' + str(index) + '.cnf'
-        with open(name, 'w') as f:
-            f.writelines(data)
-            f.write(assignment)
-        f.close()
+        write_partition(var_counts, filename, index)
+
+def write_partition(var_counts, filename, index, bin_string = None):
+    n = len(var_counts)
+    b = bin(index)[2:]
+    l = len(b)
+    b = str(0) * (n - l) + b
+    if bin_string is not None:
+        b = bin_string
+    ##construct constraint
+    assignment = ""
+    for i in range(len(b)):
+        if b[i] == '1':
+            assignment += str(var_counts[i]) + ' 0\n'
+        else:
+            assignment += '-' + str(var_counts[i]) + ' 0\n'
+    #add constraint to original file
+    with open(filename, 'r') as file:
+        data = file.readlines()
+    num_data = []
+    for i in range(len(data)):
+        if "p cnf" in data[i]:
+            num_data = data[i].split(' ')
+            num_data[-1] = str(int(num_data[-1]) + n) 
+            constraints_and_clauses = num_data[0] + ' ' + num_data[1] + ' ' + num_data[2] + ' ' + num_data[3] + '\n'
+            data[i] = constraints_and_clauses
+            break
+    ###write modified info back to the file
+    name = filename.split('.cnf')[0] + '-window-' + str(index) + '.cnf'
+    with open(name, 'w') as f:
+        f.writelines(data)
+        f.write(assignment)
+    f.close()
 
 #################################
 ##### END PARTITIONER ###########
