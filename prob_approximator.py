@@ -163,11 +163,11 @@ if run_on_partition:
     #     i += 1
     # partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
     print("Convergence Limit: " + str(convergence_limit))
-    print("Threshold: " + str(args.threshold))
+    print("Iterations to Convergence - Threshold: " + str(args.threshold))
     print("Partitioned Probability: " + str(float(partition_count)/(2**n)))
-    print("epsilon for partitioned = " + str(epsilon_partition))
     print("Time for partitioned with partitioning overhead : {}".format(partition_time + file_gen_time))
     print("Time for partitioned without partitioning overhead: {}".format(partition_time))
+    print("Number of partitions sampled: {}".format(file_counter))
     # print("Partitioned Count: " + partition_count_str)
 
 if args.actual_probability == -1:
