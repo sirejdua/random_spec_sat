@@ -14,7 +14,7 @@ parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 98% 
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
 parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], help='partitioning technique')
 parser.add_argument("--threshold", action='store', choices=["5", "10", "16", "32"], help='number of iterations to convergence')
-parser.add_argument("--convergence_limit", action='store', choices=["0.1", "0.01", "0.001", "0.0005"], help='number of iterations to convergence')
+parser.add_argument("--convergence_limit", action='store', choices=["0.2", "0.1", "0.01", "0.001", "0.0005"], help='number of iterations to convergence')
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
 parser.add_argument("--ignore_partition", help = "run scalmc on the original model", action = "store_true")
 args = parser.parse_args()
@@ -81,7 +81,7 @@ if run_on_partition:
         elif args.method == "n/2":
             k = int(0.5*n)
         elif args.method == "nlogn":
-            k = int(n - np.log(n))
+            k = int(n - math.log(n, 2))
         else: 
             k = n-5
     print("Partitioning Technique: " + str(args.method))
@@ -91,7 +91,7 @@ if run_on_partition:
     free_vars = n - k
     #partition the file, time it
     start = time.time()
-    variable_order = get_top_vars(k, 25000, filename)
+    variable_order = get_top_vars(k, 1000, filename)
     partition_vars = variable_order[:k]
     end = time.time()
     #count number of partitioned solutions
