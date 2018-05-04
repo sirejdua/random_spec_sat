@@ -7,7 +7,7 @@ probs_12 = [0, 0, 0, 0, 0, 0]
 probs_arr = [probs_6, probs_12]
 circuits = [6, 12]
 # for epsilon in [.001, .1, .25, .5, 1]:
-for epsilon in [.1]:
+for epsilon in [.05, 1]:
     for index in range(len(circuits)):
         probs = probs_arr[index]
         circ = circuits[index]
@@ -25,6 +25,4 @@ for epsilon in [.1]:
                     info = os.popen(command).readlines()             
                 for line in info:
                     print(line)
-                    if "Actual Probability: " in line and i >= len(probs):
-                        probs += [float(line.split(':')[1].strip(' \n'))]
                     f.write(line)

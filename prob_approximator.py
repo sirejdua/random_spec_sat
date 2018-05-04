@@ -13,8 +13,8 @@ parser.add_argument("-k", "--num_partition_variables", help = "number of partiti
 parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 98% probability", type = float, default = 2)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
 parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], help='partitioning technique')
-parser.add_argument("--threshold", action='store', choices=["5", "10", "16", "32"], help='number of iterations to convergence')
-parser.add_argument("--convergence_limit", action='store', choices=["0.2", "0.1", "0.01", "0.001", "0.0005"], help='number of iterations to convergence')
+parser.add_argument("--threshold", help='number of iterations to convergence')
+parser.add_argument("--convergence_limit", help='number of iterations to convergence')
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
 parser.add_argument("--ignore_partition", help = "run scalmc on the original model", action = "store_true")
 args = parser.parse_args()
@@ -57,7 +57,7 @@ pivotAC_partition = int(math.ceil(9.84 * (1 + (epsilon_partition / (1.0 + epsilo
 if run_on_original:
     ##count number of original solutions
     start = time.time()
-    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta 0.01 " + filename).readlines()[-1]
+    info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta .01 " + filename).readlines()[-1]
     num_sols = info.split(': ')[1].split(' x ')
     base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
     original_count += int(num_sols[0]) * base**exp
@@ -104,8 +104,6 @@ if run_on_partition:
     file_counter = 0
     converged = False
     partitions = set()
-
-    free_variable_count_adjustments = 1
     i = 0
     while not converged:
         #SCALMC ON PARTITIONS
@@ -121,7 +119,7 @@ if run_on_partition:
         end_gen = time.time()
         partitions.add(assignment_str)
         write_partition(partition_vars, filename, i, bin_string = assignment_str)
-        info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta 0.02 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+        info = os.popen("./../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta .01 " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
         try:
             num_sols = info.split(': ')[1].split(' x ')
             base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
@@ -137,13 +135,11 @@ if run_on_partition:
                         free_vars = int(free_vars * 2)
                         k = n - free_vars
                         density_counter = 0
-                        free_variable_count_adjustments += 1
                         threshold = int(threshold / 2)
                         if k <= 0 or threshold <= 1:
                             converged = True
                         density = 0
                         density_sum = 0
-                        file_counter = 0
                         partition_vars = variable_order[:k]
                         partitions = set()
             else:
@@ -170,11 +166,11 @@ if run_on_partition:
     print("Number of partitions sampled: {}".format(file_counter))
     # print("Partitioned Count: " + partition_count_str)
 
-if args.actual_probability == -1:
-    prob = os.popen("aigcount " + aiger_file + "out.aag").readlines()[0][:-2]
-else:
-    prob = args.actual_probability
-print("Actual Probability: " + str(float(prob)))
+# if args.actual_probability == -1:
+#     prob = os.popen("aigcount " + aiger_file + "out.aag").readlines()[0][:-2]
+# else:
+#     prob = args.actual_probability
+# print("Actual Probability: " + str(float(prob)))
 
 # if aiger:
 #     os.system("./../aiger-1.9.9/aigand " + aiger_file + ".aig " + aiger_file + ".aig")
