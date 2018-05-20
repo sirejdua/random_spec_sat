@@ -1,13 +1,13 @@
 import subprocess, os, sys
 import time
 import argparse
-trials = [10, 20, 30, 40]
-probs_6 = [0.9937774332, 0.984357068639, 0.976468369026, 0, 0, 0]
-probs_12 = [0, 0, 0, 0, 0, 0]
+trials = [10, 40]
+probs_6 = [0.9961, 0.8789]
+probs_12 = [0.3809, .1396]
 probs_arr = [probs_6, probs_12]
 circuits = [6, 12]
 # for epsilon in [.001, .1, .25, .5, 1]:
-for epsilon in [.05, 1]:
+for epsilon in [2.0]:
     for index in range(len(circuits)):
         probs = probs_arr[index]
         circ = circuits[index]
@@ -25,4 +25,8 @@ for epsilon in [.05, 1]:
                     info = os.popen(command).readlines()             
                 for line in info:
                     print(line)
+                    if "Original Probability" in line:
+                        data = float(line.split(": ")[1].strip(" \n"))
+                        percent_err = (data - probs_arr[index][i])/probs_arr[index][i]
+                        f.write("Percent error: " + str(percent_err))
                     f.write(line)

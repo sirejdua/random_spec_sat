@@ -11,12 +11,14 @@ for epsilon in [.001]:
     for index in range(len(circuits)):
         probs = probs_arr[index]
         circ = circuits[index]
-        for convergence_limit in [.001, .0005, .00001]:
+        for convergence_limit in [.1, .001, .0005]:
             # for threshold in [5, 10, 16, 32]:
             for threshold in [8, 16, 32]:
                 # for method in ["3n/4", "n/2"]:
                 # for method in ["n-5", "nlogn", "3n/4","n/2"]:
                 for method in ["n-5", "nlogn"]:
+                    if convergence_limit == .1 and threshold > 16:
+                        continue
                     if (method == "n-5" or method == "nlogn") or (threshold <= 10 and convergence_limit >= .01):
                         method_str = method
                         if method == "3n/4":
