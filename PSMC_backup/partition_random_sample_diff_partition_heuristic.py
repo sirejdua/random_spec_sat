@@ -96,13 +96,14 @@ allOne = 0
 def get_top_vars(k, numSamples, filename):
     global num_clauses_initial
     #finds top k partitioning variables of formula after c random samples drawn from the counting variables
-    var_counts = np.zeros(k)
+    var_counts, pos_counts, neg_counts = np.zeros(k), np.zeros(k), np.zeros(k)
     global counting_vars
     #get the number of variables and create the appropriate array
     global clauses
     #get the number of positive samples
     global allOne
     counter = 0
+
     with open(filename, 'r') as f:
         for f_line in f:
             line = f_line.split(' ')
@@ -112,30 +113,39 @@ def get_top_vars(k, numSamples, filename):
                 for i in range(len(ind_vars)):
                     counting_vars[int(ind_vars[i])] = 0
             elif line[0] == 'p':
-                num_vars_total = int(line[2])
-                var_counts = np.zeros(num_vars_total + 1)
+                var_counts = np.zeros(int(line[2]) + 1)
+                pos_counts = np.zeros(int(line[2]) + 1)
+                neg_counts = np.zeros(int(line[2]) + 1)
                 #if no ind vars are specified
+                if len(counting_vars.keys()) == 0:
+                    # var_counts = np.zeros(int(line[2]) + 1)
+                    for i in range(1, len(var_counts)):
+                        counting_vars[i] = 0
             elif line[0] == 'c' and counter != 0:
                 continue
             else:
                 clauses.append([int(i) for i in line[:-1]])
                 counter += 1
-    if len(counting_vars.keys()) == 0:
-        for i in range(1, len(var_counts)):
-            counting_vars[i] = 0
+                for i in line[:-1]:
+                	if abs(int(i)) in counting_vars.keys():
+                		if i < 0:
+                			neg_counts[abs(int(i))] += 1
+                		else:
+                			pos_counts[int(i)] += 1
+    for i in range(len(var_counts)):
+    	if i not in counting_vars.keys():
+    		var_counts[i] -= 1
+    	else:
+    		var_counts[i] = max(neg_counts[i], pos_counts[i])
     counter = sample_solutions(numSamples, counting_vars, clauses)
     allOne = (counter == numSamples)
-    if counter == 0:
-        for i in counting_vars.keys():
-            var_counts[i] = 1
-    else: 
-        for i in counting_vars.keys():
-            var_counts[i] = counting_vars[i]
+    # if counter == 0:
+    #     for i in counting_vars.keys():
+    #         var_counts[i] = 1
+    # else: 
+    #     for i in counting_vars.keys():
+    #         var_counts[i] = counting_vars[i]
     #get k top vars
-    for i in range(len(var_counts)):
-        if i in counting_vars:
-            if var_counts[i] < counter - var_counts[i]:
-                var_counts[i] = counter - var_counts[i]
     var_counts = np.argsort(-var_counts)
     return var_counts
 

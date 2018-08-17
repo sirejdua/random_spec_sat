@@ -14,10 +14,7 @@ import math
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help = "cnf file path")
 parser.add_argument("-k", "--num_partition_variables", help = "number of partitioning variables", type = int, default = -1)
-parser.add_argument("-eo", "--epsilon_original", help = "epsilon bound on original", type = float, default = 2)
-parser.add_argument("-ep", "--epsilon_partition", help = "epsilon bound on answer with 99% probability", type = float, default = 2)
-parser.add_argument("-ad", "--original_delta", help = "the delta for the original", type = float, default = .1)
-parser.add_argument("-pd", "--partition_delta", help = "the delta for the partitions", type = float, default = .01)
+parser.add_argument("-e", "--epsilon", help = "epsilon bound on answer with 99% probability", type = float, default = 2)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
 parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], help='partitioning technique')
 parser.add_argument("--threshold", help='number of iterations to convergence')
@@ -38,35 +35,30 @@ filename = args.filename
 # Get the number of clauses and the number of counting variables #
 ##################################################################
 
-sub_value = 0
 with open(filename, 'r') as f:
     found = False
-    file_lines = f.readlines()
-    for i in range(len(file_lines)):
-        x = file_lines[i]
+    while not found:
+        x = f.readline()
         if "c ind" in x:
             n += len(x.split(' ')) - 3
         elif "p cnf " in x:
             num_clauses = int(x.split(' ')[-1])
+            found = True
             if n is 0:
-                sub_value = int(x.split(' ')[-2])
-if n is 0:
-    n = sub_value
+                n = int(x.split(' ')[-2])
+
 print("File: " + filename.split('/')[-1].split('.cnf')[0])
-print("n = " + str(n))
 
 #############################################
 # set the parameters appropriately          # 
 # pivotAC and epsilon for PSMC and original #
 #############################################
 
-epsilon_main = float(args.epsilon_original)
+epsilon_main = float(args.epsilon)
 pivotAC_main = int(math.ceil(9.84 * (1 + (epsilon_main / (1.0 + epsilon_main))) * (1 + (1.0/epsilon_main)) * (1 + (1.0/epsilon_main))))
-epsilon_partition = float(args.epsilon_partition)
+epsilon_partition = 0.1
 pivotAC_partition = int(math.ceil(9.84 * (1 + (epsilon_partition / (1.0 + epsilon_partition))) * (1 + (1.0/epsilon_partition)) * (1 + (1.0/epsilon_partition))))
 
-delta_partition = float(args.partition_delta)
-delta_original = float(args.original_delta)
 
 ######################
 # SCALMC ON ORIGINAL #
@@ -75,9 +67,8 @@ delta_original = float(args.original_delta)
 if run_on_original:
     ##count number of original solutions
     start = time.time()
-    info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta " + str(delta_original) + " " + filename).readlines()[-1]
-    # info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta .05 " + filename).readlines()[-1]
-    # info = os.popen("./../../maxcount/scalmc " + filename).readlines()[-1]
+    info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_main) + " --delta .01 " + filename).readlines()[-1]
+    # info = os.popen("./../maxcount/scalmc " + filename).readlines()[-1]
     num_sols = info.split(': ')[1].split(' x ')
     base, exp = int(num_sols[1].split('^')[0]), int(num_sols[1].split('^')[1].strip("\n"))
     original_count += int(num_sols[0]) * base**exp
@@ -89,9 +80,9 @@ if run_on_original:
     while original_count % (2**(j+1)) == 0:
         j += 1
     original_count_str = str(original_count/(2**j)) + " x 2^" + str(j)
-    # print("Original Probability: " + str(float(original_count)/(2**n)))
-    # print("epsilon for original = " + str(epsilon_main))
-    # print("Time for original: " + str(original_time))
+    print("Original Probability: " + str(float(original_count)/(2**n)))
+    print("epsilon for original = " + str(epsilon_main))
+    print("Time for original: " + str(original_time))
     # print("Original Count: " + original_count_str)
 
 ########################
@@ -108,8 +99,8 @@ if run_on_partition:
             k = int(n - math.log(n, 2))
         else: 
             k = n-5
-    # print("Partitioning Technique: " + str(args.method))
-    # print("k = " + str(k))
+    print("Partitioning Technique: " + str(args.method))
+    print("k = " + str(k))
 
     # What should be the limit of convergence?
     convergence_limit = float(args.convergence_limit)
@@ -119,7 +110,7 @@ if run_on_partition:
     free_vars = n - k
     #partition the file, time it
     start = time.time()
-    variable_order = get_top_vars(k, 1000, filename)
+    variable_order = get_top_vars(k, 100, filename)
     partition_vars = variable_order[:k]
     end = time.time()
     #count number of partitioned solutions
@@ -191,7 +182,7 @@ if run_on_partition:
                 k = max(min_k, decremented_k)
             else:
                 k = max(k-10, 0)
-            # print("k: " + str(k))
+            print("k: " + str(k))
             partition_vars = variable_order[:k]
             final_start_time = time.time()
 
@@ -209,8 +200,7 @@ if run_on_partition:
         partitions.add(assignment_str)
         # write the partition to file
         write_partition(partition_vars, filename, i, bin_string = assignment_str)
-        info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta_partition) + " " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
-        # info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta) + " " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+        info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta) + " " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
         # info = os.popen("./../../maxcount/scalmc " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
         partitions_sampled += 1
         try:
@@ -247,7 +237,8 @@ if run_on_partition:
             density = density_sum/partitions_sampled
             if abs(density - old_density) > convergence_limit:
                 density_counter = 0
-        # print(density)
+
+        print(density)
         total_files += 1
         i += 1
     end = time.time()
@@ -262,7 +253,7 @@ if run_on_partition:
     print("Iterations to Convergence - Threshold: " + str(args.threshold))
     print("Partitioned Probability: " + str(density))
     print("Time for partitioned with partitioning overhead : {}".format(partition_time + file_gen_time))
-    # print("Time for partitioned without partitioning overhead: {}".format(partition_time))
+    print("Time for partitioned without partitioning overhead: {}".format(partition_time))
     print("Time taken for final k value: " + str(end - final_start_time))
     if not args.ignore_original and not args.ignore_partition:
         print("Original Probability: " + str(float(original_count)/(2**n)))

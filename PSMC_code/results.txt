@@ -1,0 +1,897 @@
+Circuit: 10sk_1_46
+File: 10sk_1_46
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.0078125
+Time for partitioned with partitioning overhead : 1.21319890022
+Time taken for final k value: 0.429269075394
+Original Probability: 0.0078125
+Time for original: 1.19332504272
+Percent Error: 0.0
+Number of partitions sampled: 123
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 10sk_1_46
+File: 10sk_1_46
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.0082753499349
+Time for partitioned with partitioning overhead : 25.513228178
+Time taken for final k value: 24.6359820366
+Original Probability: 0.0078125
+Time for original: 14.0838868618
+Percent Error: 5.92447916667
+Number of partitions sampled: 134
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 17sk_3_45
+File: 17sk_3_45
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00475543478261
+Time for partitioned with partitioning overhead : 6.49269080162
+Time taken for final k value: 4.17475104332
+Original Probability: 0.00390625
+Time for original: 2.04506707191
+Percent Error: 21.7391304348
+Number of partitions sampled: 104
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 23
+************************************************
+
+Circuit: 17sk_3_45
+File: 17sk_3_45
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00390625
+Time for partitioned with partitioning overhead : 15.215307951
+Time taken for final k value: 13.0650539398
+Original Probability: 0.00390625
+Time for original: 14.2733521461
+Percent Error: 0.0
+Number of partitions sampled: 93
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 12
+************************************************
+
+Circuit: 19sk_3_48
+File: 19sk_3_48
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.0068603515625
+Time for partitioned with partitioning overhead : 8.4416949749
+Time taken for final k value: 5.70794892311
+Original Probability: 0.005615234375
+Time for original: 2.49053382874
+Percent Error: 22.1739130435
+Number of partitions sampled: 124
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 20
+************************************************
+
+Circuit: 19sk_3_48
+File: 19sk_3_48
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.0051479917584
+Time for partitioned with partitioning overhead : 20.5455920696
+Time taken for final k value: 17.5504050255
+Original Probability: 0.0052490234375
+Time for original: 20.1281728745
+Percent Error: 1.92477096547
+Number of partitions sampled: 126
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 20sk_1_51
+File: 20sk_1_51
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00787168560606
+Time for partitioned with partitioning overhead : 8.4409558773
+Time taken for final k value: 3.88666510582
+Original Probability: 0.008056640625
+Time for original: 3.20642709732
+Percent Error: 2.29568411387
+Number of partitions sampled: 124
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 20sk_1_51
+File: 20sk_1_51
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00799005681818
+Time for partitioned with partitioning overhead : 31.9693758488
+Time taken for final k value: 27.400331974
+Original Probability: 0.00830078125
+Time for original: 23.9821770191
+Percent Error: 3.74331550802
+Number of partitions sampled: 124
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 29sk_3_45
+File: 29sk_3_45
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00564778645833
+Time for partitioned with partitioning overhead : 9.45212602615
+Time taken for final k value: 6.94378089905
+Original Probability: 0.0050048828125
+Time for original: 2.48283004761
+Percent Error: 12.8455284553
+Number of partitions sampled: 96
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 15
+************************************************
+
+Circuit: 29sk_3_45
+File: 29sk_3_45
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00479403409091
+Time for partitioned with partitioning overhead : 14.5080020428
+Time taken for final k value: 10.9555969238
+Original Probability: 0.0048828125
+Time for original: 18.2005300522
+Percent Error: 1.81818181818
+Number of partitions sampled: 150
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 27sk_3_32
+File: 27sk_3_32
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00757575757576
+Time for partitioned with partitioning overhead : 0.91472196579
+Time taken for final k value: 0.372721910477
+Original Probability: 0.0078125
+Time for original: 0.514634132385
+Percent Error: 3.0303030303
+Number of partitions sampled: 92
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 27sk_3_32
+File: 27sk_3_32
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00757575757576
+Time for partitioned with partitioning overhead : 2.16275811195
+Time taken for final k value: 1.61901807785
+Original Probability: 0.0078125
+Time for original: 4.93539905548
+Percent Error: 3.0303030303
+Number of partitions sampled: 92
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 30sk_5_76
+File: 30sk_5_76
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00244140625
+Time for partitioned with partitioning overhead : 20.4332051277
+Time taken for final k value: 3.62556290627
+Original Probability: 0.000885009765625
+Time for original: 7.05023598671
+Percent Error: 175.862068966
+Number of partitions sampled: 214
+Final # of partitioning variables (k): 51
+Number of partitions sampled with k = 51: 28
+************************************************
+
+Circuit: 30sk_5_76
+File: 30sk_5_76
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00177001953125
+Time for partitioned with partitioning overhead : 32.9489490986
+Time taken for final k value: 20.543941021
+Original Probability: 0.0008544921875
+Time for original: 68.4965999126
+Percent Error: 107.142857143
+Number of partitions sampled: 144
+Final # of partitioning variables (k): 26
+Number of partitions sampled with k = 26: 8
+************************************************
+
+Circuit: 32sk_4_38
+File: 32sk_4_38
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00352822580645
+Time for partitioned with partitioning overhead : 2.36288499832
+Time taken for final k value: 1.27408194542
+Original Probability: 0.00390625
+Time for original: 0.840054988861
+Percent Error: 9.67741935484
+Number of partitions sampled: 100
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 31
+************************************************
+
+Circuit: 32sk_4_38
+File: 32sk_4_38
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00378787878788
+Time for partitioned with partitioning overhead : 5.93221187592
+Time taken for final k value: 4.85730290413
+Original Probability: 0.00390625
+Time for original: 7.58609890938
+Percent Error: 3.0303030303
+Number of partitions sampled: 102
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 51sk_4_38
+File: 51sk_4_38
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00473484848485
+Time for partitioned with partitioning overhead : 3.38814687729
+Time taken for final k value: 1.67413210869
+Original Probability: 0.0047607421875
+Time for original: 1.04081106186
+Percent Error: 0.543900543901
+Number of partitions sampled: 132
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 51sk_4_38
+File: 51sk_4_38
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00461647727273
+Time for partitioned with partitioning overhead : 5.07100200653
+Time taken for final k value: 3.62142109871
+Original Probability: 0.0048828125
+Time for original: 9.22761893272
+Percent Error: 5.45454545455
+Number of partitions sampled: 109
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: 54sk_12_97
+File: 54sk_12_97
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 2.36034393311e-05
+Time for partitioned with partitioning overhead : 25.8813729286
+Time taken for final k value: 14.2967848778
+Original Probability: 2.19345092773e-05
+Time for original: 12.6704959869
+Percent Error: 7.60869565217
+Number of partitions sampled: 189
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 4
+************************************************
+
+Circuit: 54sk_12_97
+File: 54sk_12_97
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 2.13384628296e-05
+Time for partitioned with partitioning overhead : 90.4019420147
+Time taken for final k value: 67.9468460083
+Original Probability: 2.19345092773e-05
+Time for original: 104.865479946
+Percent Error: 2.71739130435
+Number of partitions sampled: 201
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 4
+************************************************
+
+Circuit: 107sk_3_90
+File: 107sk_3_90
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 8.71930803571e-06
+Time for partitioned with partitioning overhead : 8.14674282074
+Time taken for final k value: 2.65630197525
+Original Probability: 7.62939453125e-06
+Time for original: 3.95693206787
+Percent Error: 14.2857142857
+Number of partitions sampled: 187
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 7
+************************************************
+
+Circuit: 107sk_3_90
+File: 107sk_3_90
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 7.62939453125e-06
+Time for partitioned with partitioning overhead : 27.0102112293
+Time taken for final k value: 22.1019542217
+Original Probability: 7.62939453125e-06
+Time for original: 45.8024930954
+Percent Error: 0.0
+Number of partitions sampled: 180
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 8
+************************************************
+
+Circuit: s298_3_2
+File: s298_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 6.37236764453e-58
+Time for partitioned with partitioning overhead : 3.26915216446
+Time taken for final k value: 0.0818591117859
+Original Probability: 6.37236764453e-58
+Time for original: 0.190148830414
+Percent Error: 0.0
+Number of partitions sampled: 404
+Final # of partitioning variables (k): 7
+Number of partitions sampled with k = 7: 4
+************************************************
+
+Circuit: s298_3_2
+File: s298_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 6.37236764453e-58
+Time for partitioned with partitioning overhead : 3.38357996941
+Time taken for final k value: 0.333328008652
+Original Probability: 6.37236764453e-58
+Time for original: 1.71545100212
+Percent Error: 0.0
+Number of partitions sampled: 404
+Final # of partitioning variables (k): 7
+Number of partitions sampled with k = 7: 4
+************************************************
+
+Circuit: s526_3_2
+File: s526_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 5.5809931215e-104
+Time for partitioned with partitioning overhead : 6.32736206055
+Time taken for final k value: 0.18342089653
+Original Probability: 5.5809931215e-104
+Time for original: 0.386627912521
+Percent Error: 0.0
+Number of partitions sampled: 726
+Final # of partitioning variables (k): 8
+Number of partitions sampled with k = 8: 4
+************************************************
+
+Circuit: s526_3_2
+File: s526_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 5.5809931215e-104
+Time for partitioned with partitioning overhead : 6.85486316681
+Time taken for final k value: 1.13313698769
+Original Probability: 5.5809931215e-104
+Time for original: 3.70272994041
+Percent Error: 0.0
+Number of partitions sampled: 726
+Final # of partitioning variables (k): 8
+Number of partitions sampled with k = 8: 4
+************************************************
+
+Circuit: s641_15_7
+File: s641_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 4.43840467097e-158
+Time for partitioned with partitioning overhead : 12.0408716202
+Time taken for final k value: 1.24934577942
+Original Probability: 4.09698892705e-158
+Time for original: 2.18730020523
+Percent Error: 8.33333333333
+Number of partitions sampled: 1144
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s641_15_7
+File: s641_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 4.26769679901e-158
+Time for partitioned with partitioning overhead : 20.2872049809
+Time taken for final k value: 9.88316321373
+Original Probability: 4.21079417502e-158
+Time for original: 24.8540971279
+Percent Error: 1.35135135135
+Number of partitions sampled: 1144
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s838_15_7
+File: s838_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 2.29827867995e-187
+Time for partitioned with partitioning overhead : 14.9878540039
+Time taken for final k value: 1.58111810684
+Original Probability: 2.29827867995e-187
+Time for original: 3.07998299599
+Percent Error: 0.0
+Number of partitions sampled: 1367
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s838_15_7
+File: s838_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 2.29827867995e-187
+Time for partitioned with partitioning overhead : 27.5388047695
+Time taken for final k value: 14.7100880146
+Original Probability: 2.29827867995e-187
+Time for original: 36.2418878078
+Percent Error: 0.0
+Number of partitions sampled: 1367
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1238a_3_2
+File: s1238a_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 8.04754828804e-198
+Time for partitioned with partitioning overhead : 13.8083741665
+Time taken for final k value: 0.429039001465
+Original Probability: 7.73400744565e-198
+Time for original: 0.833498954773
+Percent Error: 4.05405405405
+Number of partitions sampled: 1369
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1238a_3_2
+File: s1238a_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 7.83852105978e-198
+Time for partitioned with partitioning overhead : 15.6846809387
+Time taken for final k value: 3.00411486626
+Original Probability: 7.73400744565e-198
+Time for original: 8.3215739727
+Percent Error: 1.35135135135
+Number of partitions sampled: 1369
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1238a_15_7
+File: s1238a_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 3.81602921691e-224
+Time for partitioned with partitioning overhead : 16.5507161617
+Time taken for final k value: 0.681564092636
+Original Probability: 3.37701700611e-224
+Time for original: 0.869058132172
+Percent Error: 13.0
+Number of partitions sampled: 1543
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1238a_15_7
+File: s1238a_15_7
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 3.6471783666e-224
+Time for partitioned with partitioning overhead : 18.6729679108
+Time taken for final k value: 3.95610189438
+Original Probability: 3.44455734624e-224
+Time for original: 10.0149140358
+Percent Error: 5.88235294118
+Number of partitions sampled: 1543
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1423a_3_2
+File: s1423a_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 1.82504790364e-207
+Time for partitioned with partitioning overhead : 18.4520709515
+Time taken for final k value: 3.21360492706
+Original Probability: 1.80071393159e-207
+Time for original: 6.45739912987
+Percent Error: 1.35135135135
+Number of partitions sampled: 1551
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: s1423a_3_2
+File: s1423a_3_2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 1.80071393159e-207
+Time for partitioned with partitioning overhead : 46.6652212143
+Time taken for final k value: 31.6117579937
+Original Probability: 1.7520459875e-207
+Time for original: 72.3918159008
+Percent Error: 2.77777777778
+Number of partitions sampled: 1551
+Final # of partitioning variables (k): 9
+Number of partitions sampled with k = 9: 4
+************************************************
+
+Circuit: blasted_case_0_b12_1
+File: blasted_case_0_b12_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00757575757576
+Time for partitioned with partitioning overhead : 2.13176012039
+Time taken for final k value: 1.32455897331
+Original Probability: 0.0078125
+Time for original: 0.949213981628
+Percent Error: 3.0303030303
+Number of partitions sampled: 116
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case_0_b12_1
+File: blasted_case_0_b12_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.0196184430804
+Time for partitioned with partitioning overhead : 6.93320512772
+Time taken for final k value: 5.70062994957
+Original Probability: 0.0078125
+Time for original: 8.71872901917
+Percent Error: 151.116071429
+Number of partitions sampled: 213
+Final # of partitioning variables (k): 16
+Number of partitions sampled with k = 16: 56
+************************************************
+
+Circuit: blasted_case_1_b12_even2
+File: blasted_case_1_b12_even2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.126834381551
+Time for partitioned with partitioning overhead : 15.0320208073
+Time taken for final k value: 14.9182491302
+Original Probability: 0.125
+Time for original: 18.0851829052
+Percent Error: 1.46750524109
+Number of partitions sampled: 954
+Final # of partitioning variables (k): 139
+Number of partitions sampled with k = 139: 954
+************************************************
+
+Circuit: blasted_case_1_b12_even2
+File: blasted_case_1_b12_even2
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.106598984772
+Time for partitioned with partitioning overhead : 23.2552559376
+Time taken for final k value: 23.1358089447
+Original Probability: 0.125
+Time for original: 208.849305153
+Percent Error: 14.7208121827
+Number of partitions sampled: 985
+Final # of partitioning variables (k): 139
+Number of partitions sampled with k = 139: 985
+************************************************
+
+Circuit: blasted_case_2_b12_1
+File: blasted_case_2_b12_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00804924242424
+Time for partitioned with partitioning overhead : 2.36711907387
+Time taken for final k value: 1.42277097702
+Original Probability: 0.0078125
+Time for original: 0.996223926544
+Percent Error: 3.0303030303
+Number of partitions sampled: 139
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case_2_b12_1
+File: blasted_case_2_b12_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.00759240352746
+Time for partitioned with partitioning overhead : 7.68343520164
+Time taken for final k value: 7.0153491497
+Original Probability: 0.0078125
+Time for original: 8.82598304749
+Percent Error: 2.81723484848
+Number of partitions sampled: 103
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case_2_b14_3
+File: blasted_case_2_b14_3
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.110859728507
+Time for partitioned with partitioning overhead : 3.50853800774
+Time taken for final k value: 3.48419499397
+Original Probability: 0.125
+Time for original: 1.08551001549
+Percent Error: 11.3122171946
+Number of partitions sampled: 442
+Final # of partitioning variables (k): 34
+Number of partitions sampled with k = 34: 442
+************************************************
+
+Circuit: blasted_case_2_b14_3
+File: blasted_case_2_b14_3
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.123450413223
+Time for partitioned with partitioning overhead : 11.198964119
+Time taken for final k value: 11.1752140522
+Original Probability: 0.125
+Time for original: 10.9761450291
+Percent Error: 1.23966942149
+Number of partitions sampled: 968
+Final # of partitioning variables (k): 34
+Number of partitions sampled with k = 34: 968
+************************************************
+
+Circuit: blasted_case_3_b14_1
+File: blasted_case_3_b14_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.12334280303
+Time for partitioned with partitioning overhead : 10.1028881073
+Time taken for final k value: 1.67137098312
+Original Probability: 0.125
+Time for original: 1.2686829567
+Percent Error: 1.32575757576
+Number of partitions sampled: 1037
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case_3_b14_1
+File: blasted_case_3_b14_1
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.121922348485
+Time for partitioned with partitioning overhead : 57.600287199
+Time taken for final k value: 14.4304711819
+Original Probability: 0.125
+Time for original: 14.2787251472
+Percent Error: 2.46212121212
+Number of partitions sampled: 1074
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case6
+File: blasted_case6
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 4.45544719696e-06
+Time for partitioned with partitioning overhead : 1.7073507309
+Time taken for final k value: 0.972826957703
+Original Probability: 3.81469726562e-06
+Time for original: 2.16970086098
+Percent Error: 16.796875
+Number of partitions sampled: 98
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 4
+************************************************
+
+Circuit: blasted_case6
+File: blasted_case6
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 5.39422035217e-06
+Time for partitioned with partitioning overhead : 8.62750601768
+Time taken for final k value: 7.70102787018
+Original Probability: 3.81469726562e-06
+Time for original: 19.2401268482
+Percent Error: 41.40625
+Number of partitions sampled: 105
+Final # of partitioning variables (k): 6
+Number of partitions sampled with k = 6: 4
+************************************************
+
+Circuit: blasted_case17
+File: blasted_case17
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.115451388889
+Time for partitioned with partitioning overhead : 0.946593999863
+Time taken for final k value: 0.104907035828
+Original Probability: 0.125
+Time for original: 0.115211009979
+Percent Error: 7.63888888889
+Number of partitions sampled: 118
+Final # of partitioning variables (k): 3
+Number of partitions sampled with k = 3: 9
+************************************************
+
+Circuit: blasted_case17
+File: blasted_case17
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.111979166667
+Time for partitioned with partitioning overhead : 0.843554735184
+Time taken for final k value: 0.307574033737
+Original Probability: 0.125
+Time for original: 0.906379938126
+Percent Error: 10.4166666667
+Number of partitions sampled: 54
+Final # of partitioning variables (k): 3
+Number of partitions sampled with k = 3: 9
+************************************************
+
+Circuit: blasted_case34
+File: blasted_case34
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.129734848485
+Time for partitioned with partitioning overhead : 8.44955801964
+Time taken for final k value: 1.76461100578
+Original Probability: 0.125
+Time for original: 1.04534602165
+Percent Error: 3.78787878788
+Number of partitions sampled: 534
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 33
+************************************************
+
+Circuit: blasted_case34
+File: blasted_case34
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 0.129523809524
+Time for partitioned with partitioning overhead : 5.27332687378
+Time taken for final k value: 5.24328804016
+Original Probability: 0.125
+Time for original: 10.7642841339
+Percent Error: 3.61904761905
+Number of partitions sampled: 525
+Final # of partitioning variables (k): 33
+Number of partitions sampled with k = 33: 525
+************************************************
+
+Circuit: blasted_squaring3
+File: blasted_squaring3
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 5.1359700806e-12
+Time for partitioned with partitioning overhead : 1.80459284782
+Time taken for final k value: 0.510365962982
+Original Probability: 1.45519152284e-11
+Time for original: 17.4865691662
+Percent Error: 64.7058823529
+Number of partitions sampled: 146
+Final # of partitioning variables (k): 22
+Number of partitions sampled with k = 22: 17
+************************************************
+
+Circuit: blasted_squaring3
+File: blasted_squaring3
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 3.91782333071e-12
+Time for partitioned with partitioning overhead : 2.98009896278
+Time taken for final k value: 1.69799399376
+Original Probability: 1.45519152284e-11
+Time for original: 96.2526118755
+Percent Error: 73.0769230769
+Number of partitions sampled: 142
+Final # of partitioning variables (k): 22
+Number of partitions sampled with k = 22: 13
+************************************************
+
+Circuit: blasted_squaring51
+File: blasted_squaring51
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 3.56882810593e-06
+Time for partitioned with partitioning overhead : 1.54846191406
+Time taken for final k value: 0.747177839279
+Original Probability: 3.57627868652e-06
+Time for original: 2.18459606171
+Percent Error: 0.208333333333
+Number of partitions sampled: 88
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 4
+************************************************
+
+Circuit: blasted_squaring51
+File: blasted_squaring51
+************************************************
+Convergence Limit: 0.001
+Iterations to Convergence - Threshold: 8
+Partitioned Probability: 3.66568565369e-06
+Time for partitioned with partitioning overhead : 5.05427408218
+Time taken for final k value: 4.40960907936
+Original Probability: 3.57627868652e-06
+Time for original: 14.8740098476
+Percent Error: 2.5
+Number of partitions sampled: 80
+Final # of partitioning variables (k): 5
+Number of partitions sampled with k = 5: 4
+************************************************
+
+Circuit: blasted_TR_b12_2_linear

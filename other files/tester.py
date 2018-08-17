@@ -26,7 +26,7 @@ for epsilon in [.001, 1]:
                         with open(test_name, "w") as f:
                             for i in range(len(trials)):
                                 aiger_path = "tests/phi" + str(circ) + "_" + str(trials[i]) + "/phi" + str(circ) + "_" + str(trials[i]) + ".aig"
-                                command = "python2.7 prob_approximator.py " + aiger_path + " " + "tests/raw_files/source_" + str(circ) + ".aag -e " + str(epsilon) + " -ap " + str(0.0)
+                                command = "python2.7 PSMC_code/prob_approximator_cnf_direct.py " + aiger_path + " " + "tests/raw_files/source_" + str(circ) + ".aag -e " + str(epsilon) + " -ap " + str(0.0)
                                 command += " --method " + str(method)
                                 command += " --threshold " + str(threshold)
                                 command += " --convergence_limit " + str(convergence_limit)

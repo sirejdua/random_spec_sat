@@ -112,21 +112,25 @@ def get_top_vars(k, numSamples, filename):
                 for i in range(len(ind_vars)):
                     counting_vars[int(ind_vars[i])] = 0
             elif line[0] == 'p':
-                var_counts = np.zeros(int(line[2]))
+                num_vars_total = int(line[2])
+                var_counts = np.zeros(num_vars_total + 1)
                 #if no ind vars are specified
-                if len(counting_vars.keys()) == 0:
-                    var_counts = np.zeros(int(line[2]) + 1)
-                    for i in range(1, len(var_counts)):
-                        counting_vars[i] = 0
             elif line[0] == 'c' and counter != 0:
                 continue
             else:
                 clauses.append([int(i) for i in line[:-1]])
                 counter += 1
+    if len(counting_vars.keys()) == 0:
+        for i in range(1, len(var_counts)):
+            counting_vars[i] = 0
     counter = sample_solutions(numSamples, counting_vars, clauses)
     allOne = (counter == numSamples)
-    for i in counting_vars.keys():
-        var_counts[i] = counting_vars[i]
+    if counter == 0:
+        for i in counting_vars.keys():
+            var_counts[i] = 1
+    else: 
+        for i in counting_vars.keys():
+            var_counts[i] = counting_vars[i]
     #get k top vars
     for i in range(len(var_counts)):
         if i in counting_vars:
@@ -142,6 +146,7 @@ def partition_formula(var_counts, filename):
         write_partition(var_counts, filename, index)
 
 def write_partition(var_counts, filename, index, bin_string = None):
+    #var counts: an array with index i representing the ith variable to partition on.
     n = len(var_counts)
     b = bin(index)[2:]
     l = len(b)
