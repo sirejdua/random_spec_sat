@@ -15,13 +15,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("filename", help = "cnf file path")
 parser.add_argument("-k", "--num_partition_variables", help = "number of partitioning variables", type = int, default = -1)
 parser.add_argument("-eo", "--epsilon_original", help = "epsilon bound on original", type = float, default = 2)
-parser.add_argument("-ep", "--epsilon_partition", help = "epsilon bound on answer with 99% probability", type = float, default = 2)
-parser.add_argument("-ad", "--original_delta", help = "the delta for the original", type = float, default = .1)
-parser.add_argument("-pd", "--partition_delta", help = "the delta for the partitions", type = float, default = .01)
+parser.add_argument("-ep", "--epsilon_partition", help = "epsilon value for partition at start", type = float, default = 2)
+parser.add_argument("-do", "--delta_original", help = "the delta for the original", type = float, default = .1)
+parser.add_argument("-dp", "--delta_partition", help = "the delta for the partitions", type = float, default = .99)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
-parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], help='partitioning technique')
-parser.add_argument("--threshold", help='number of iterations to convergence')
-parser.add_argument("--convergence_limit", help='number of iterations to convergence')
+parser.add_argument("-epul", "--epsilon_partition_upper_limit", help = "upper limit on epsilon used on any larger cell sizes", type = float, default = 5)
+parser.add_argument("-tl", "--threshold_lower_limit", help = "the lower bound on the threshold to be used", type = float, default = 8)
+parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], default = "nlogn", help='partitioning technique')
+parser.add_argument("--threshold", help='number of iterations to convergence', type = float, default = 4)
+parser.add_argument("--convergence_limit", help='the bound to which the density must converge to', type = float, default = 0.001)
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
 parser.add_argument("--ignore_partition", help = "run scalmc on the original model", action = "store_true")
 args = parser.parse_args()
@@ -52,8 +54,8 @@ with open(filename, 'r') as f:
                 sub_value = int(x.split(' ')[-2])
 if n is 0:
     n = sub_value
-print("File: " + filename.split('/')[-1].split('.cnf')[0])
-print("n = " + str(n))
+# print("File: " + filename.split('/')[-1].split('.cnf')[0])
+# print("n = " + str(n))
 
 #############################################
 # set the parameters appropriately          # 
@@ -65,8 +67,10 @@ pivotAC_main = int(math.ceil(9.84 * (1 + (epsilon_main / (1.0 + epsilon_main))) 
 epsilon_partition = float(args.epsilon_partition)
 pivotAC_partition = int(math.ceil(9.84 * (1 + (epsilon_partition / (1.0 + epsilon_partition))) * (1 + (1.0/epsilon_partition)) * (1 + (1.0/epsilon_partition))))
 
-delta_partition = float(args.partition_delta)
-delta_original = float(args.original_delta)
+delta_partition = float(args.delta_partition)
+delta_original = float(args.delta_original)
+
+epsilon_partition_upper_limit = float(args.epsilon_partition_upper_limit)
 
 ######################
 # SCALMC ON ORIGINAL #
@@ -111,6 +115,8 @@ if run_on_partition:
     # print("Partitioning Technique: " + str(args.method))
     # print("k = " + str(k))
 
+    # PSMC decreases the threshold for the steps needed to convergence as we expand the cell size. what should be the lower limit?
+    threshold_lower_limit = int(args.threshold_lower_limit)
     # What should be the limit of convergence?
     convergence_limit = float(args.convergence_limit)
     # How many iterations where the density does not change by more than the convergence limit until we determine convergence?
@@ -173,7 +179,7 @@ if run_on_partition:
             # then reduce k by dividing by 2, tweak epsilon by multiplying by 2, and adjust pivot_AC accordingly.
             # also reset the density measures: partitions_sampled, density, density_counter, density_sum.
 
-            epsilon_partition = min(epsilon_partition * 2, 1)
+            epsilon_partition = min(epsilon_partition * 2, epsilon_partition_upper_limit)
             pivotAC_partition = int(math.ceil(9.84 * (1 + (epsilon_partition / (1.0 + epsilon_partition))) * (1 + (1.0/epsilon_partition)) * (1 + (1.0/epsilon_partition))))
             empty_counter = 0
             level += 1
@@ -224,7 +230,7 @@ if run_on_partition:
             #if the density does not change by more than convergence_limit
             if abs(density - old_density) <= convergence_limit:
                 density_counter += 1
-                if density_counter >= max(int(threshold/(2**(level-1))), 4):
+                if density_counter >= max(int(threshold/(2**(level-1))), threshold_lower_limit):
                     # GO TO THE ELSE CASE IF AND ONLY IF our density is 1 but we have sampled unSAT assignments when generating partitioning variables...
                     if (not allOne and density != 1) or (allOne and density == 1):
                         converged = True
@@ -256,22 +262,56 @@ if run_on_partition:
     i = 0
     # while int(partition_count) % (2**(i+1)) == 0:
     #     i += 1
-    # partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
-    print("************************************************")
-    print("Convergence Limit: " + str(convergence_limit))
-    print("Iterations to Convergence - Threshold: " + str(args.threshold))
-    print("Partitioned Probability: " + str(density))
-    print("Time for partitioned with partitioning overhead : {}".format(partition_time + file_gen_time))
-    # print("Time for partitioned without partitioning overhead: {}".format(partition_time))
+
+    partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
+if not args.ignore_partition:
+    partition_time_str = '{:.{p}g}'.format(partition_time + file_gen_time, p=4)
+    partition_accuracy_str = '{:.{p}g}'.format(density, p=4)
+if not args.ignore_original:
+    original_time_str = '{:.{p}g}'.format(original_time, p=4)
+    original_accuracy_str = '{:.{p}g}'.format(float(original_count)/(2**n), p=4)
+
+result_info = filename.split('/')[-1].split('.cnf')[0]
+if not args.ignore_partition:
+    result_info += ", " + partition_time_str
+if not args.ignore_original:
+    result_info += ", " + original_time_str 
+if not args.ignore_partition:
+    result_info += ", " + partition_accuracy_str 
+if not args.ignore_original:
+     result_info += ", " + original_accuracy_str
+    
+print(result_info)
+print("************************************************")
+if not args.ignore_partition:
+    print("Time for partitioned with partitioning overhead : " + '{:.{p}g}'.format(partition_time + file_gen_time, p=4))
     print("Time taken for final k value: " + str(end - final_start_time))
-    if not args.ignore_original and not args.ignore_partition:
-        print("Original Probability: " + str(float(original_count)/(2**n)))
-        print("Time for original: " + str(original_time))
+if not args.ignore_original:
+    print("Time for original: " + '{:.{p}g}'.format(original_time, p=4))
+if not args.ignore_partition:
+    print("Partitioned Probability: " + '{:.{p}g}'.format(density, p=4))
+if not args.ignore_original:
+    print("Original Probability: " + '{:.{p}g}'.format(float(original_count)/(2**n), p=4))
+    if not args.ignore_partition:
         print("Percent Error: " + str(100*abs((density - float(original_count)/(2**n))/(float(original_count)/(2**n)))))
-    print("Number of partitions sampled: {}".format(total_files))
-    print("Final # of partitioning variables (k): " + str(k))
-    print("Number of partitions sampled with k = " + str(k) + ": " + str(partitions_sampled))
-    print("************************************************")
+print("************************************************")
+
+    # partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
+    # print("************************************************")
+    # print("Convergence Limit: " + str(convergence_limit))
+    # print("Iterations to Convergence - Threshold: " + str(args.threshold))
+    # print("Partitioned Probability: " + str(density))
+    # print("Time for partitioned with partitioning overhead : {}".format(partition_time + file_gen_time))
+    # print("Time for partitioned without partitioning overhead: {}".format(partition_time))
+    # print("Time taken for final k value: " + str(end - final_start_time))
+    # if not args.ignore_original and not args.ignore_partition:
+    #     print("Original Probability: " + str(float(original_count)/(2**n)))
+    #     print("Time for original: " + str(original_time))
+    #     print("Percent Error: " + str(100*abs((density - float(original_count)/(2**n))/(float(original_count)/(2**n)))))
+    # print("Number of partitions sampled: {}".format(total_files))
+    # print("Final # of partitioning variables (k): " + str(k))
+    # print("Number of partitions sampled with k = " + str(k) + ": " + str(partitions_sampled))
+    # print("************************************************")
     # print("Partitioned Count: " + partition_count_str)
 
 # if args.actual_probability == -1:
