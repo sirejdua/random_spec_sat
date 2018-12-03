@@ -1,7 +1,9 @@
 import subprocess, os, sys
 import time
 import argparse
-from partition_random_sample import *
+# from partition_random_sample import *
+from partition_random_sample_ftl import *
+# from partition_random_sample_true_random import *
 import math
 ##########################################################
 ### PSMC on a CNF file without Aiger circuit unrolling ###
@@ -16,14 +18,14 @@ parser.add_argument("filename", help = "cnf file path")
 parser.add_argument("-k", "--num_partition_variables", help = "number of partitioning variables", type = int, default = -1)
 parser.add_argument("-eo", "--epsilon_original", help = "epsilon bound on original", type = float, default = 2)
 parser.add_argument("-ep", "--epsilon_partition", help = "epsilon value for partition at start", type = float, default = 2)
-parser.add_argument("-do", "--delta_original", help = "the delta for the original", type = float, default = .1)
+parser.add_argument("-do", "--delta_original", help = "the delta for the original", type = float, default = .05)
 parser.add_argument("-dp", "--delta_partition", help = "the delta for the partitions", type = float, default = .99)
 parser.add_argument("-ap", "--actual_probability", help = "don't calculate the exact probability; just use this number", type = float, default = -1)
 parser.add_argument("-epul", "--epsilon_partition_upper_limit", help = "upper limit on epsilon used on any larger cell sizes", type = float, default = 5)
-parser.add_argument("-tl", "--threshold_lower_limit", help = "the lower bound on the threshold to be used", type = float, default = 16)
+parser.add_argument("-tl", "--threshold_lower_limit", help = "the lower bound on the threshold to be used", type = float, default = 32)
 parser.add_argument("--method", action='store', choices=["3n/4","n/2", "n-5", "nlogn"], default = "nlogn", help='partitioning technique')
 parser.add_argument("--threshold", help='number of iterations to convergence', type = float, default = 32)
-parser.add_argument("--convergence_limit", help='the bound to which the density must converge to', type = float, default = 0.001)
+parser.add_argument("--convergence_limit", help='the bound to which the density must converge to', type = float, default = 0.0005)
 parser.add_argument("--ignore_original", help = "run scalmc on the original model", action = "store_true")
 parser.add_argument("--ignore_partition", help = "run scalmc on the original model", action = "store_true")
 args = parser.parse_args()
@@ -114,7 +116,7 @@ if run_on_partition:
             k = n-5
     # print("Partitioning Technique: " + str(args.method))
     # print("k = " + str(k))
-    k = 3
+
     # PSMC decreases the threshold for the steps needed to convergence as we expand the cell size. what should be the lower limit?
     threshold_lower_limit = int(args.threshold_lower_limit)
     # What should be the limit of convergence?
@@ -125,8 +127,9 @@ if run_on_partition:
     free_vars = n - k
     #partition the file, time it
     start = time.time()
-    variable_order = get_top_vars(k, 5000, filename)
+    variable_order = get_top_vars(k, 10000, filename)
     partition_vars = variable_order[:k]
+    print(partition_vars)
     end = time.time()
     #count number of partitioned solutions
     file_gen_time = end - start
@@ -154,22 +157,18 @@ if run_on_partition:
     empty_counter = 0 # how many empty partitions have i sampled?
     delta = 0.1
     level = 1 # the number of values k has taken on.
-    i = 0
+    window_count = 0
     min_k = int(math.log(n, 2))
-    #find p
-    # p = 0
-    # lim = n
-    # while lim > 0:
-    #     lim = lim - (2**p) * math.log(n, 2)
-    #     p += 1
-    # p -= 1
     final_start_time = time.time()
+
+    #probability array for boosting
+    # probs = np.zeros(k)
+    num_partitions_sampled = 0
     while not converged:
 
         # What is k (# of partitioning variables) currently at?  It is the max of (min_k, decremented_k)
         # because the idea is to reduce k by decreasing by 2 * math.log(n, 2) until it reaches the minimum possible size
         # once you reach the minimum possible size, stop decreasing k.
-
         decremented_k = int(n - (2**(level-1))*math.log(n, 2))
         min_k = int(math.log(n, 2))
         # if we have sampled a sufficient # of empty partitions....
@@ -189,7 +188,7 @@ if run_on_partition:
             partitions_sampled = 0
             density = 0
             # reset_count()
-            i = 0
+            window_count = 0
             # p = max (p-1, 0)
             decremented_k = int(n - (2**(level-1))*math.log(n, 2))
             min_k = int(math.log(n, 2))
@@ -200,6 +199,7 @@ if run_on_partition:
                 k = max(k-10, 0)
             # print("k: " + str(k))
             partition_vars = variable_order[:k]
+            # probs = np.zeros(k)
             final_start_time = time.time()
 
         old_density = density
@@ -212,11 +212,16 @@ if run_on_partition:
             if len(partitions) == 2**k:
                 converged = True
                 break
+        if converged:
+            break
+        assignment_arr = np.array([int(var_assignment) for var_assignment in assignment_str])
+        # probs = update_weights(assignment_arr, probs)
         end_gen = time.time()
         partitions.add(assignment_str)
         # write the partition to file
-        write_partition(partition_vars, filename, i, bin_string = assignment_str)
-        info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta_partition) + " " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
+        write_partition(partition_vars, filename, window_count, bin_string = assignment_str)
+        info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta_partition) + " " + filename.split('.cnf')[0] + "-window-" + str(window_count) + ".cnf").readlines()[-1]
+        num_partitions_sampled += 1
         # info = os.popen("./../../maxcount/scalmc --pivotAC " + str(pivotAC_partition) + " --delta " + str(delta) + " " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
         # info = os.popen("./../../maxcount/scalmc " + filename.split('.cnf')[0] + "-window-" + str(i) + ".cnf").readlines()[-1]
         partitions_sampled += 1
@@ -256,7 +261,7 @@ if run_on_partition:
                 density_counter = 0
         # print(density)
         total_files += 1
-        i += 1
+        window_count += 1
     end = time.time()
     partition_time = end - start
     partition_count = density * 2**n
@@ -267,25 +272,30 @@ if run_on_partition:
     partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
 if not args.ignore_partition:
     partition_time_str = '{:.{p}g}'.format(partition_time + file_gen_time, p=4)
+    alg_time_str = '{:.{p}g}'.format(partition_time, p=4)
     partition_accuracy_str = '{:.{p}g}'.format(density, p=4)
 if not args.ignore_original:
     original_time_str = '{:.{p}g}'.format(original_time, p=4)
     original_accuracy_str = '{:.{p}g}'.format(float(original_count)/(2**n), p=4)
 
 result_info = filename.split('/')[-1].split('.cnf')[0]
+# if not args.ignore_partition:
+#     result_info += ", " + partition_time_str
 if not args.ignore_partition:
-    result_info += ", " + partition_time_str
+    result_info += ", " + alg_time_str + " seconds"
 if not args.ignore_original:
-    result_info += ", " + original_time_str 
+    result_info += ", " + original_time_str + " seconds"
 if not args.ignore_partition:
-    result_info += ", " + partition_accuracy_str 
+    result_info += ", " + partition_accuracy_str + " accuracy"
 if not args.ignore_original:
-     result_info += ", " + original_accuracy_str
+     result_info += ", " + original_accuracy_str + " accuracy"
     
 print(result_info)
 print("************************************************")
 if not args.ignore_partition:
-    print("Time for partitioned with partitioning overhead : " + '{:.{p}g}'.format(partition_time + file_gen_time, p=4))
+    print("Total Time Taken: " + '{:.{p}g}'.format(partition_time + file_gen_time, p=4))
+    print("Time taken for file generation: " + str(file_gen_time))
+    print("Time taken for algorithm: " + str(partition_time))
     print("Time taken for final k value: " + str(end - final_start_time))
 if not args.ignore_original:
     print("Time for original: " + '{:.{p}g}'.format(original_time, p=4))
@@ -296,7 +306,8 @@ if not args.ignore_original:
     if not args.ignore_partition:
         print("Percent Error: " + str(100*abs((density - float(original_count)/(2**n))/(float(original_count)/(2**n)))))
 print("************************************************")
-
+if not args.ignore_partition:
+    print(num_partitions_sampled)
     # partition_count_str = str(int(partition_count)/(2**i)) + " x 2^" + str(i)
     # print("************************************************")
     # print("Convergence Limit: " + str(convergence_limit))

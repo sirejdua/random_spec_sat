@@ -1,0 +1,327 @@
+multiplicative weights: circuit: phi7_6, k = 1
+phi7_6, 0.1822 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 1
+phi7_6, 0.1607 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 1
+phi7_8, 3.372 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 1
+phi7_8, 3.426 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 1
+phi7_10, 212.1 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 1
+phi7_10, 186.3 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 1
+phi12_6, 0.1424 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 1
+phi12_6, 0.1262 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 1
+phi12_8, 2.522 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 1
+phi12_8, 2.396 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 1
+phi12_10, 136.2 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 1
+phi12_10, 97.54 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 2
+phi7_6, 0.1845 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 2
+phi7_6, 0.1825 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 2
+phi7_8, 3.25 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 2
+phi7_8, 3.1 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 2
+phi7_10, 125.1 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 2
+phi7_10, 108.9 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 2
+phi12_6, 0.19 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 2
+phi12_6, 0.1686 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 2
+phi12_8, 2.358 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 2
+phi12_8, 2.396 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 2
+phi12_10, 94.16 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 2
+phi12_10, 75.5 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 3
+phi7_6, 0.2491 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 3
+phi7_6, 0.2584 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 3
+phi7_8, 3.317 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 3
+phi7_8, 3.793 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 3
+phi7_10, 96.76 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 3
+phi7_10, 84.85 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 3
+phi12_6, 0.2025 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 3
+phi12_6, 0.1827 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 3
+phi12_8, 2.254 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 3
+phi12_8, 2.108 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 3
+phi12_10, 64.23 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 3
+phi12_10, 58.32 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 4
+phi7_6, 0.4764 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 4
+phi7_6, 0.3787 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 4
+phi7_8, 3.091 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 4
+phi7_8, 3.268 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 4
+phi7_10, 70.35 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 4
+phi7_10, 70.85 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 4
+phi12_6, 0.2676 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 4
+phi12_6, 0.2761 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 4
+phi12_8, 2.633 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 4
+phi12_8, 2.305 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 4
+phi12_10, 49.87 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 4
+phi12_10, 43.42 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 5
+phi7_6, 0.495 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 5
+phi7_6, 0.4794 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 5
+phi7_8, 3.126 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 5
+phi7_8, 3.151 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 5
+phi7_10, 60.52 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 5
+phi7_10, 63.28 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 5
+phi12_6, 0.5272 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 5
+phi12_6, 0.4327 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 5
+phi12_8, 2.98 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 5
+phi12_8, 2.298 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 5
+phi12_10, 47.25 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 5
+phi12_10, 43.87 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 6
+phi7_6, 0.88 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 6
+phi7_6, 0.8554 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 6
+phi7_8, 3.733 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 6
+phi7_8, 3.548 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 6
+phi7_10, 62.93 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 6
+phi7_10, 60.65 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 6
+phi12_6, 1.015 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 6
+phi12_6, 1.029 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 6
+phi12_8, 2.975 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 6
+phi12_8, 2.853 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 6
+phi12_10, 41.79 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 6
+phi12_10, 39.16 seconds, 0.38 accuracy
+
+
+
+
+
+multiplicative weights: circuit: phi7_6, k = 7
+phi7_6, 1.626 seconds, 0.6072 accuracy
+
+Follow The Leader: circuit: phi7_6, k = 7
+phi7_6, 1.668 seconds, 0.6072 accuracy
+
+
+multiplicative weights: circuit: phi7_8, k = 7
+phi7_8, 4.293 seconds, 0.5604 accuracy
+
+Follow The Leader: circuit: phi7_8, k = 7
+phi7_8, 4.173 seconds, 0.5604 accuracy
+
+
+multiplicative weights: circuit: phi7_10, k = 7
+phi7_10, 57.43 seconds, 0.5256 accuracy
+
+Follow The Leader: circuit: phi7_10, k = 7
+phi7_10, 60.72 seconds, 0.5256 accuracy
+
+
+multiplicative weights: circuit: phi12_6, k = 7
+phi12_6, 1.648 seconds, 0.4519 accuracy
+
+Follow The Leader: circuit: phi12_6, k = 7
+phi12_6, 1.572 seconds, 0.4519 accuracy
+
+
+multiplicative weights: circuit: phi12_8, k = 7
+phi12_8, 3.927 seconds, 0.4116 accuracy
+
+Follow The Leader: circuit: phi12_8, k = 7
+phi12_8, 3.572 seconds, 0.4116 accuracy
+
+
+multiplicative weights: circuit: phi12_10, k = 7
+phi12_10, 39.86 seconds, 0.38 accuracy
+
+Follow The Leader: circuit: phi12_10, k = 7
+phi12_10, 37.08 seconds, 0.38 accuracy
+
+
+
+
+
+PSMC: circuit: phi7_6
+
+PSMC: circuit: phi7_8
+
+PSMC: circuit: phi7_10
+
+PSMC: circuit: phi12_6
+
+PSMC: circuit: phi12_8
+
+PSMC: circuit: phi12_10
+

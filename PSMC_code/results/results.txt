@@ -1,0 +1,354 @@
+config info:  --epsilon_partition 1.2 --delta_partition 0.5 --method nlogn  --threshold 8 --threshold_lower_limit 2 --epsilon_partition_upper_limit 2 --convergence_limit 0.1
+10sk_1_46, 1.215, 0.01421
+
+17sk_3_45, 3.173, 0.003906
+
+19sk_3_48, 3.082, 0.01395
+
+20sk_1_51, 6.87, 0.007874
+
+29sk_3_45, 3.551, 0.000651
+
+27sk_3_32, 1.067, 0.007576
+
+30sk_5_76, 14.57, 0.000651
+
+32sk_4_38, 1.556, 0.004167
+
+51sk_4_38, 1.842, 0.004972
+
+54sk_12_97, 17.08, 2.718e-05
+
+107sk_3_90, 6.013, 1.017e-05
+
+s298_3_2, 0.07832, 0.25
+
+s526_3_2, 0.1732, 0.25
+
+s641_15_7, 0.1802, 0.625
+
+s838_15_7, 0.2352, 0.625
+
+s1238a_3_2, 0.1653, 0.5586
+
+s1238a_15_7, 0.118, 0.3156
+
+s1423a_3_2, 0.2954, 0.4762
+
+blasted_case_0_b12_1, 0.8694, 0.004808
+
+blasted_case_1_b12_even2, 1.34, 0.1216
+
+blasted_case_2_b12_1, 0.728, 0.0125
+
+blasted_case_2_b14_3, 0.5891, 0.1411
+
+blasted_case_3_b14_1, 0.7353, 0.09574
+
+blasted_case6, 1.116, 4.411e-06
+
+blasted_case17, 0.3464, 0.14
+
+blasted_case34, 0.5409, 0.1167
+
+blasted_squaring3, 1.386, 9.701e-12
+
+blasted_squaring51, 1.028, 4.411e-06
+
+
+config info:  --epsilon_partition 0.4 --delta_partition 0.35 --method nlogn  --threshold 8 --threshold_lower_limit 2 --epsilon_partition_upper_limit 1.2 --convergence_limit 0.1
+10sk_1_46, 1.464, 0.0005319
+
+17sk_3_45, 3.971, 0.007576
+
+19sk_3_48, 3.826, 0.01038
+
+20sk_1_51, 9.014, 0.01231
+
+29sk_3_45, 3.525, 0.02121
+
+27sk_3_32, 0.8762, 0.02778
+
+30sk_5_76, 18.68, 0.0005391
+
+32sk_4_38, 1.844, 0.004808
+
+51sk_4_38, 2.426, 0.00601
+
+54sk_12_97, 18.96, 2.313e-05
+
+107sk_3_90, 5.994, 1.526e-05
+
+s298_3_2, 0.07827, 0.25
+
+s526_3_2, 0.2096, 0.18
+
+s641_15_7, 0.1559, 0.5357
+
+s838_15_7, 0.218, 0.4762
+
+s1238a_3_2, 0.1594, 0.6542
+
+s1238a_15_7, 0.1224, 0.4062
+
+s1423a_3_2, 0.2878, 0.3704
+
+blasted_case_0_b12_1, 0.8811, 0.03223
+
+blasted_case_1_b12_even2, 1.628, 0.1235
+
+blasted_case_2_b12_1, 0.8841, 0.008929
+
+blasted_case_2_b14_3, 0.4264, 0.09091
+
+blasted_case_3_b14_1, 0.57, 0.08
+
+blasted_case6, 0.6576, 1.144e-05
+
+blasted_case17, 0.3995, 0.1424
+
+blasted_case34, 0.7525, 0.05984
+
+blasted_squaring3, 1.443, 2.728e-12
+
+blasted_squaring51, 0.8153, 1.11e-05
+
+
+config info:  --epsilon_partition 0.4 --delta_partition 0.25 --method nlogn  --threshold 8 --threshold_lower_limit 4 --epsilon_partition_upper_limit 1.2 --convergence_limit 0.001
+10sk_1_46, 1.948, 0.007568
+
+17sk_3_45, 8.17, 0.003646
+
+19sk_3_48, 12.57, 0.005201
+
+20sk_1_51, 18.71, 0.008108
+
+29sk_3_45, 5.794, 0.005031
+
+27sk_3_32, 0.9685, 0.007576
+
+30sk_5_76, 24.8, 0.001038
+
+32sk_4_38, 3.046, 0.004735
+
+51sk_4_38, 2.835, 0.004712
+
+54sk_12_97, 34.84, 2.253e-05
+
+107sk_3_90, 10.2, 7.629e-06
+
+s298_3_2, 0.07713, 0.25
+
+s526_3_2, 2.239, 0.2358
+
+s641_15_7, 4.207, 0.5785
+
+s838_15_7, 4.877, 0.4933
+
+s1238a_3_2, 5.44, 0.5793
+
+s1238a_15_7, 2.328, 0.4092
+
+s1423a_3_2, 5.822, 0.5652
+
+blasted_case_0_b12_1, 2.053, 0.007812
+
+blasted_case_1_b12_even2, 23.42, 0.1188
+
+blasted_case_2_b12_1, 3.322, 0.007561
+
+blasted_case_2_b14_3, 7.208, 0.1387
+
+blasted_case_3_b14_1, 4.555, 0.1269
+
+blasted_case6, 2.586, 3.859e-06
+
+blasted_case17, 0.4707, 0.1406
+
+blasted_case34, 7.217, 0.1306
+
+blasted_squaring3, 1.947, 3.424e-12
+
+blasted_squaring51, 1.929, 1.427e-06
+
+
+config info:  --epsilon_partition 0.4 --delta_partition 0.12 --method nlogn  --threshold 8 --threshold_lower_limit 4 --epsilon_partition_upper_limit 1.2 --convergence_limit 0.001
+10sk_1_46, 4.057, 0.007568
+
+17sk_3_45, 10.47, 0.003788
+
+19sk_3_48, 6.312, 0.00509
+
+20sk_1_51, 39.54, 0.008336
+
+29sk_3_45, 14.05, 0.004736
+
+27sk_3_32, 1.668, 0.007576
+
+30sk_5_76, 30, 0.002035
+
+32sk_4_38, 6.802, 0.004207
+
+51sk_4_38, 3.865, 0.004735
+
+54sk_12_97, 67.25, 2.134e-05
+
+107sk_3_90, 23.07, 6.104e-06
+
+s298_3_2, 0.07524, 0.25
+
+s526_3_2, 2.58, 0.2646
+
+s641_15_7, 2.286, 0.5951
+
+s838_15_7, 5.155, 0.4681
+
+s1238a_3_2, 4.339, 0.6072
+
+s1238a_15_7, 2.641, 0.4134
+
+s1423a_3_2, 5.971, 0.5695
+
+blasted_case_0_b12_1, 12.12, 0.007591
+
+blasted_case_1_b12_even2, 37.28, 0.1104
+
+blasted_case_2_b12_1, 8.452, 0.007576
+
+blasted_case_2_b14_3, 7.86, 0.1284
+
+blasted_case_3_b14_1, 7.294, 0.1323
+
+blasted_case6, 5.891, 4.575e-06
+
+blasted_case17, 2.057, 0.1111
+
+blasted_case34, 8.341, 0.1299
+
+blasted_squaring3, 2.738, 2.252e-12
+
+blasted_squaring51, 4.663, 5.037e-06
+
+
+config info:  --epsilon_partition 0.4 --delta_partition 0.12 --method nlogn  --threshold 8 --threshold_lower_limit 8 --epsilon_partition_upper_limit 1.2 --convergence_limit 0.001
+10sk_1_46, 8.094, 0.007387
+
+17sk_3_45, 19.43, 0.003906
+
+19sk_3_48, 15.55, 0.005127
+
+20sk_1_51, 14.36, 0.007872
+
+29sk_3_45, 9.193, 0.004794
+
+27sk_3_32, 2.096, 0.01515
+
+30sk_5_76, 39.76, 0.0005529
+
+32sk_4_38, 2.563, 0.003788
+
+51sk_4_38, 5.052, 0.004616
+
+54sk_12_97, 125.9, 2.229e-05
+
+107sk_3_90, 37.5, 4.695e-06
+
+s298_3_2, 0.07364, 0.25
+
+s526_3_2, 2.358, 0.2455
+
+s641_15_7, 3.557, 0.5734
+
+s838_15_7, 5.144, 0.5059
+
+s1238a_3_2, 4.864, 0.5878
+
+s1238a_15_7, 2.23, 0.3894
+
+s1423a_3_2, 6.732, 0.5683
+
+blasted_case_0_b12_1, 8.035, 0.007546
+
+blasted_case_1_b12_even2, 37.85, 0.1147
+
+blasted_case_2_b12_1, 9.319, 0.007591
+
+blasted_case_2_b14_3, 7.525, 0.1326
+
+blasted_case_3_b14_1, 7.64, 0.1319
+
+blasted_case6, 10.09, 3.867e-06
+
+blasted_case17, 1.699, 0.1111
+
+blasted_case34, 8.145, 0.1371
+
+blasted_squaring3, 4.816, 5.443e-11
+
+blasted_squaring51, 7.531, 3.539e-06
+
+
+config info:  --epsilon_partition 0.1 --delta_partition 0.12 --method nlogn  --threshold 8 --threshold_lower_limit 8 --epsilon_partition_upper_limit 0.25 --convergence_limit 0.0005
+10sk_1_46, 12.63, 0.007477
+
+17sk_3_45, 12.01, 0.003788
+
+19sk_3_48, 141.2, 0.0051
+
+20sk_1_51, 44.21, 0.00799
+
+29sk_3_45, 71.53, 0.004794
+
+27sk_3_32, 5.422, 0.007576
+
+30sk_5_76, 155.8, 0.0008828
+
+32sk_4_38, 31.89, 0.003906
+
+51sk_4_38, 5.868, 0.004616
+
+54sk_12_97, 394.1, 2.183e-05
+
+107sk_3_90, 150.7, 1.017e-05
+
+s298_3_2, 0.0707, 0.25
+
+s526_3_2, 4.479, 0.2467
+
+s641_15_7, 8.211, 0.5927
+
+s838_15_7, 10.52, 0.5196
+
+s1238a_3_2, 9.105, 0.5635
+
+s1238a_15_7, 3.773, 0.4148
+
+s1423a_3_2, 10.05, 0.5479
+
+blasted_case_0_b12_1, 38.45, 0.007583
+
+blasted_case_1_b12_even2, 26.99, 0.1385
+
+blasted_case_2_b12_1, 40.71, 0.007587
+
+blasted_case_2_b14_3, 14.51, 0.1291
+
+blasted_case_3_b14_1, 7.352, 0.1165
+
+blasted_case6, 36.07, 3.82e-06
+
+blasted_case17, 0.8178, 0.1112
+
+blasted_case34, 15.2, 0.1305
+
+blasted_squaring3, 10.27, 4.158e-12
+
+blasted_squaring51, 22.17, 3.269e-06
+
+
+DEFAULT: 
+epsilon_original 2, delta_original 0.4
+
+epsilon_original 1.2, delta_original 0.12
+
+epsilon_original 0.1, delta_original 0.01

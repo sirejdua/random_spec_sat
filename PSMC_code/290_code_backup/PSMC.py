@@ -1,8 +1,8 @@
 import subprocess, os, sys
 import time
 import argparse
-# from partition_random_sample_clause_heuristic import *
-from partition_random_sample_mw import *
+# from partition_random_sample import *
+from partition_random_sample_true_random import *
 import math
 ##########################################################
 ### PSMC on a CNF file without Aiger circuit unrolling ###
@@ -126,7 +126,7 @@ if run_on_partition:
     free_vars = n - k
     #partition the file, time it
     start = time.time()
-    variable_order = get_top_vars(k, 10000, filename)
+    variable_order = get_top_vars(k, 5000, filename)
     partition_vars = variable_order[:k]
     print(partition_vars)
     end = time.time()
@@ -278,16 +278,16 @@ if not args.ignore_original:
     original_accuracy_str = '{:.{p}g}'.format(float(original_count)/(2**n), p=4)
 
 result_info = filename.split('/')[-1].split('.cnf')[0]
-# if not args.ignore_partition:
-#     result_info += ", " + partition_time_str
 if not args.ignore_partition:
-    result_info += ", " + alg_time_str + " seconds"
-if not args.ignore_original:
-    result_info += ", " + original_time_str + " seconds"
+    result_info += ", " + partition_time_str
 if not args.ignore_partition:
-    result_info += ", " + partition_accuracy_str + " accuracy"
+    result_info += ", " + alg_time_str
 if not args.ignore_original:
-     result_info += ", " + original_accuracy_str + " accuracy"
+    result_info += ", " + original_time_str 
+if not args.ignore_partition:
+    result_info += ", " + partition_accuracy_str 
+if not args.ignore_original:
+     result_info += ", " + original_accuracy_str
     
 print(result_info)
 print("************************************************")
