@@ -103,7 +103,7 @@ def get_top_vars(k, numSamples, filename):
         for i in range(1, len(var_counts)):
             counting_vars[i] = 0
     for i in counting_vars.keys():
-        var_counts[i] = random.randint(1, 150)
+        var_counts[i] = random.randint(1, 1000)
     #get k top vars
     var_counts = np.argsort(-var_counts)
     return var_counts

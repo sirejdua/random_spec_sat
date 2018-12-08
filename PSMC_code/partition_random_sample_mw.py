@@ -44,24 +44,45 @@ def sample_solutions(numSamples, counting_vars, clauses):
 
     ones_loss_vector_negation = np.zeros(max(counting_vars.keys()) + 1)
     zero_loss_vector_negation = np.zeros(max(counting_vars.keys()) + 1)
-    ones_probs_negation = np.zeros(max(counting_vars.keys()) + 1)
+    ones_probs_negation = np.zeros(max(counting_vars.keys()) + 1) 
     zero_probs_negation = np.zeros(max(counting_vars.keys()) + 1)
     loss_vector_negation = np.zeros(max(counting_vars.keys()) + 1)
 
     counting_vars_pos = counting_vars.copy()
     counting_vars_neg = counting_vars.copy()
 
+    for i in range(ones_probs.shape[0]):
+        if i in counting_vars.keys():
+            ones_probs[i] = 0.5
+            zero_probs[i] = 0.5
+            ones_probs_negation[i] = 0.5
+            zero_probs_negation[i] = 0.5
+            
+    num_keys = len(counting_vars.keys())
+
     assignments = set()
-    for T in range(min(2**len(counting_vars.keys()), numSamples)):
-        eta = np.log(T + 1) * 1.0 /(T + 1)
+    eta = np.log(numSamples + 1) * 1.0 /(numSamples + 1)
+    pos_iterations, neg_iterations = min(2**(len(counting_vars.keys()) - 1), numSamples), min(2**(len(counting_vars.keys()) - 1), numSamples)
+
+    for T in range(min(2**(len(counting_vars.keys()) - 1), numSamples)):
         # generate random assignment to the counting variables
-        assumptions = []
         counting_vars_iteration_value = dict()
         assignment_str = ""
+        assumptions = []
+        t_s = time.time()
+        # print(np.sum(np.minimum(ones_probs, zero_probs))/num_keys)
+        # print(np.minimum(ones_probs, zero_probs))
+        if np.sum(np.minimum(ones_probs, zero_probs))/num_keys < .05:
+            # print(ones_probs)
+            # print(zero_probs)
+            # print(np.minimum(ones_probs, zero_probs))
+            pos_iterations = T
+            break
         while assignment_str == "" or assignment_str in assignments:
+            assumptions = []
             assignment_str = ""
             for var in counting_vars.keys():
-                if randbool() > zero_probs[var]:
+                if random.random() > zero_probs[var]:
                     assumptions.append(var)
                     assignment_str += " " + str(var)
                     counting_vars_iteration_value[var] = 1
@@ -69,18 +90,17 @@ def sample_solutions(numSamples, counting_vars, clauses):
                     assumptions.append(-var)
                     assignment_str += " " + str(-var)
                     counting_vars_iteration_value[var] = 0
-        
+        # print(len(assignments))
         assignments.add(assignment_str)
-
         # check if assignment is consistent
         sat, model = solver.solve(assumptions)
         outcome = int(sat)
         for var in counting_vars_iteration_value.keys():
             if counting_vars_iteration_value[var] != outcome:
                 if counting_vars_iteration_value[var] == 1:
-                    ones_loss_vector[var] += 1
+                    ones_loss_vector[var] += 1.0/ones_probs[var]
                 else:
-                    zero_loss_vector[var] += 1
+                    zero_loss_vector[var] += 1.0/zero_probs[var]
                 loss_vector[var] += 1
         if sat:
             positiveSamples += 1
@@ -91,18 +111,26 @@ def sample_solutions(numSamples, counting_vars, clauses):
             total = one_weight + zero_weight
             ones_probs[var_assignment], zero_probs[var_assignment] = one_weight/total, zero_weight/total
             counting_vars_pos[var_assignment] = loss_vector[var_assignment]
-
+        
     assignments = set()
-    for T in range(min(2**len(counting_vars.keys()), numSamples)):
-        eta = np.log(T + 1) * 1.0 /(T + 1)
+    
+    for T in range(min(2**(len(counting_vars.keys()) - 1), numSamples)):
         # generate random assignment to the counting variables
         assumptions = []
         counting_vars_iteration_value = dict()
         assignment_str = ""
+        if np.sum(np.minimum(ones_probs_negation, zero_probs_negation))/num_keys < .05:
+            # print(ones_probs)
+            # print(zero_probs)
+            # print(np.minimum(ones_probs, zero_probs))
+            # print(T)
+            neg_iterations = T
+            break
         while assignment_str == "" or assignment_str in assignments:
             assignment_str = ""
+            assumptions = []
             for var in counting_vars.keys():
-                if randbool() > zero_probs_negation[var]:
+                if random.random() > zero_probs_negation[var]:
                     assumptions.append(var)
                     assignment_str += " " + str(var)
                     counting_vars_iteration_value[var] = 1
@@ -119,9 +147,9 @@ def sample_solutions(numSamples, counting_vars, clauses):
         for var in counting_vars_iteration_value.keys():
             if counting_vars_iteration_value[var] != outcome:
                 if counting_vars_iteration_value[var] == 1:
-                    ones_loss_vector_negation[var] += 1
+                    ones_loss_vector_negation[var] += 1.0/ones_probs_negation[var]
                 else:
-                    zero_loss_vector_negation[var] += 1
+                    zero_loss_vector_negation[var] += 1.0/zero_probs_negation[var]
                 loss_vector_negation[var] += 1
         if sat:
             positiveSamples += 1
@@ -132,8 +160,9 @@ def sample_solutions(numSamples, counting_vars, clauses):
             total = one_weight + zero_weight
             ones_probs_negation[var_assignment], zero_probs_negation[var_assignment] = one_weight/total, zero_weight/total
             counting_vars_neg[var_assignment] = loss_vector_negation[var_assignment]
+    
     for key in counting_vars.keys():
-        counting_vars[key] = min(counting_vars_pos[key], counting_vars_neg[key])
+        counting_vars[key] = min(counting_vars_pos[key]/pos_iterations, counting_vars_neg[key]/neg_iterations)
     return positiveSamples
 def countSampleWithMonteCarlo(numMCSamples, counting_vars, clauses):
     solver = solverForSample(clauses)

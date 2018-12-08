@@ -67,6 +67,9 @@ def countSampleWithMonteCarlo(numMCSamples, counting_vars, clauses):
 ##### PARTITIONER ###########
 #############################
 
+## THIS PARTITIONING METRIC WILL ONLY WORK AS INTENDED FOR FORMULAS WITH C IND SPECIFIED
+
+
 num_clauses_initial = 0
 output = ""
 counting_vars = dict()
